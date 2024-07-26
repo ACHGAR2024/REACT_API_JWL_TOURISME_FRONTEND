@@ -1,0 +1,116 @@
+// ** React and React Router DOM Imports **
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { motion } from 'framer-motion';
+
+// ** CSS Imports **
+import './index.css';
+
+// ** Component Imports **
+// Layout Components
+import Nav from './components/Nav';
+import Footer from './components/Footer';
+
+// Authentication Components
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
+import PrivateRoute from './components/auth/PrivateRoute';
+import UserProfileUpdate from './components/auth/UserProfileUpdate';
+
+// Place Management Components
+import EditPlace from './components/EditPlace';
+import DeletePlace from './components/DeletePlace';
+import EditCategorie from './components/EditCategorie';
+import DeleteCategorie from './components/DeleteCategorie';
+
+// Page Components
+import HomeContent from './pages/HomeContent';
+import Dashboard from './pages/Dashboard';
+import RechercherPlace from './pages/RechercherPlace';
+import DeposerPlace from './pages/DeposerPlace';
+import DeposerCategorie from './pages/DeposerCategorie';
+import MessagesManagement from './pages/MessagesManagement';
+import FichePlace from './pages/FichePlace';
+import Aide from './pages/Aide';
+import CartePlaces from './pages/CartePlaces';
+import LieuPlacesRecherche from './pages/LieuPlacesRecherche';
+
+// ** Context Imports **
+import { AuthProvider, AuthContext } from './context/AuthContext';
+import { UserProvider } from './context/UserContext';
+
+// ** Main Application Component **
+
+function PageWrapper({ children }) {
+  return (
+    <main className="w-full h-full">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        {children}
+      </motion.div>
+    </main>
+  );
+}
+
+PageWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+// ** Main Application Component **
+const Home = () => {
+  const { isAuthenticated, login, logout } = useContext(AuthContext);
+
+  return (
+    <Router>
+      <Nav isAuthenticated={isAuthenticated} handleLogout={logout} />
+      <PageWrapper>
+        <Routes>
+
+          {/* Public Routes */}
+          <Route path="/" element={<HomeContent />} />
+          <Route path="/aide" element={<Aide />} />
+          <Route path="/carte-places" element={<CartePlaces />} />
+          <Route path="/lieux-places" element={<LieuPlacesRecherche />} />
+
+          {/* Protected Routes */}
+          <Route path="/rechercher-place" element={<RechercherPlace />} />
+          <Route path="/fiche-place/:id" element={<FichePlace />} />
+
+          {/* Authentication Routes */}
+          {!isAuthenticated && <Route path="/register" element={<Register />} />}
+          <Route path="/login" element={!isAuthenticated ? <Login onLogin={login} /> : <Navigate to="/dashboard" />} />
+          <Route path="/Logout" element={<Navigate to="/" />} />
+
+          {/* Dashboard Routes */}
+          <Route path="/dashboard" element={!isAuthenticated ?  <Navigate to="/dashboard" /> : <PrivateRoute element={Dashboard} />} />
+          <Route path="/deposer_place" element={!isAuthenticated ?  <Navigate to="/deposer_place" /> : <PrivateRoute element={DeposerPlace} />} />
+          <Route path="/deposer_categorie" element={!isAuthenticated ?  <Navigate to="/deposer_categorie" /> : <PrivateRoute element={DeposerCategorie} />} />
+          <Route path="/messages-management" element={!isAuthenticated ?  <Navigate to="/messages-management" /> : <PrivateRoute element={MessagesManagement} />} />
+          <Route path="/profil-user-update" element={!isAuthenticated ?  <Navigate to="/profil-user-update" /> : <PrivateRoute element={UserProfileUpdate} />} />
+          
+          {/* Place Management Routes */}
+          {isAuthenticated && <Route path="/edit-place/:id" element={<EditPlace />} />}
+          {isAuthenticated && <Route path="/delete-place/:id" element={<DeletePlace />} />}
+          {isAuthenticated && <Route path="/edit-categorie/:id" element={<EditCategorie />} />}
+          {isAuthenticated && <Route path="/delete-categorie/:id" element={<DeleteCategorie />} />}
+
+        </Routes>
+      </PageWrapper>
+      <Footer />
+    </Router>
+  );
+};
+// ** Main App Component **
+const App = () => (
+  <AuthProvider>
+    <UserProvider>
+       <Home />
+    </UserProvider>
+  </AuthProvider>
+);
+
+export default App;
