@@ -135,18 +135,26 @@ const RechercherPlace = () => {
                 className={`bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer ${category === cat.id ? 'bg-gray-200' : ''}`}
               >
                 
-                <i className={`fa fa-${cat.name_cat === 'sit' ? 'home' : 
-                                      cat.name_cat === 'nihil_modif' ? 'list' : 
-                                      cat.name_cat === 'laborum' ? 'briefcase' : 
-                                      cat.name_cat === 'mollitia' ? 'shopping-cart' : 
-                                      cat.name_cat === 'soluta' ? 'user' :
-                                      cat.name_cat === 'distinctio' ? 'users' :
-                                      cat.name_cat === 'voluptate' ? 'book' :
-                                      cat.name_cat === 'dolores' ? 'graduation-cap' :
-                                      cat.name_cat === 'aliquid' ? 'user-plus' :
-                                      cat.name_cat === 'voluptas' ? 'user-secret' :
-                                      cat.name_cat === 'debitis' ? 'cog' :
-                                       'laptop'} mb-4 text-accent text-3xl`}></i>
+                <i className={`fa fa-${
+                    cat.name_cat === 'Monuments' ? 'monument' :
+                    cat.name_cat === 'Parcs' ? 'tree' :
+                    cat.name_cat === 'Musées' ? 'palette' :
+                    cat.name_cat === 'Restaurants' ? 'utensils' :
+                    cat.name_cat === 'Shopping' ? 'shopping-bag' :
+                    cat.name_cat === 'Événements' ? 'calendar-alt' :
+                    'landmark'
+                  } 
+                  ${
+                    cat.name_cat === 'Monuments' ? 'text-red-600' :
+                    cat.name_cat === 'Parcs' ? 'text-orange-300' :
+                    cat.name_cat === 'Musées' ? 'text-yellow-900' :
+                    cat.name_cat === 'Restaurants' ? 'text-yellow-600' :
+                    cat.name_cat === 'Shopping' ? 'text-lime-600' :
+                    cat.name_cat === 'Événements' ? 'text-pink-300' :
+                    'landmark'
+                  } 
+                  
+                  mb-4 text-red-600 text-3xl`}></i>
                 <h3 className="font-semibold">{cat.name_cat}</h3>
               </div>
             ))}

@@ -8,7 +8,7 @@ import { getCityCoordinates } from '../utils/geocode';
 import PropTypes from 'prop-types';
 import Notification from '../components/Notification';
 import { AuthContext } from '../context/AuthContext';
-import SellerInfo from '../components/SellerInfo';
+//import SellerInfo from '../components/SellerInfo';
 
 // Configuration de l'icône par défaut de Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -110,7 +110,7 @@ const FichePlace = () => {
   if (error) return <div>{error}</div>;
   if (!place) return <div>Chargement des données...</div>;
 
-  const { title, price, description, photo, address, user_id } = place;
+  const { title, price, description, photo, address, /*user_id*/ } = place;
 
   const formatTarifsWithSpaces = (tarifs) => {
     return tarifs.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -118,18 +118,61 @@ const FichePlace = () => {
 
   const TarifsComponent = ({ tarifs }) => {
     const formattedTarifs = formatTarifsWithSpaces(parseFloat(tarifs));
-    return <p className="mt-2 text-gray-600 text-2xl font-extrabold">{formattedTarifs} €</p>;
+    return <span className="mt-2 text-gray-600 text-ml font-extrabold">{formattedTarifs} €</span>;
+  };
+  const [currentPhotoIndex, setCurrentPhotoIndex] = "";
+
+  const photos = [
+    "/images/vieux-lyon-1.jpg",
+    "/images/vieux-lyon-2.jpg",
+    "/images/vieux-lyon-3.jpg",
+    "/images/vieux-lyon-4.jpg"
+  ];
+
+  const nextPhoto = () => {
+    setCurrentPhotoIndex((prevIndex) => (prevIndex + 1) % photos.length);
   };
 
+  const prevPhoto = () => {
+    setCurrentPhotoIndex((prevIndex) => (prevIndex - 1 + photos.length) % photos.length);
+  };
   return (
+
+    
     <div className="container mx-auto px-4 py-8 mt-20 mb-40 z-40">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="md:flex">
-          <div className="md:w-1/2 p-4">
-            <img className="w-full object-cover" src={`http://127.0.0.1:8000${photo}`} alt={title} />
-            <div className="h-64 mb-4 mt-5">
+       <div className="bg-white shadow-lg rounded-lg overflow-hidden animate-fadeIn">
+          <div className="md:flex">
+            <div className="md:w-1/2 p-4">
+              <div className="relative h-96 mb-4">
+              <img className="w-full h-full object-cover rounded-lg animate-fadeIn" src={`http://127.0.0.1:8000${photo}`} alt={title} />
+                <img 
+                  src={photos[currentPhotoIndex]} 
+                  alt={`Vieux Lyon - Photo ${currentPhotoIndex + 1}`}
+                  className="w-full h-full object-cover rounded-lg animate-fadeIn"
+                />
+                <button onClick={prevPhoto} className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition">
+                  <i className="fas fa-chevron-left text-2xl text-red-600"></i>
+                </button>
+                <button onClick={nextPhoto} className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 rounded-full p-2 hover:bg-opacity-75 transition">
+                  <i className="fas fa-chevron-right text-2xl text-red-600"></i>
+                </button>
+              </div>
+              <div className="flex justify-center space-x-2 mt-4">
+                {photos.map((_, index) => (
+                  <div 
+                    key={index}
+                    className={`w-3 h-3 rounded-full ${index === currentPhotoIndex ? 'bg-red-600' : 'bg-gray-300'}`}
+                  ></div>
+                ))}
+              </div>
+              <div className="mt-6">
+                <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="fas fa-map-marker-alt mr-2"></i>Localisation</h3>
+                <p className="mt-6 text-gray-500 text-2xl font-extrabold">{address}</p>
+                <div className="h-64 bg-gray-300 rounded-lg">
+                  {/* Placeholder for map */}
+                  <div className="h-64 mb-4 mt-5 ">
               {position ? (
-                <MapContainer center={position} zoom={13} className="h-full z-30">
+                <MapContainer center={position} zoom={13} className="h-full z-30 rounded-xl">
                   <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -140,26 +183,61 @@ const FichePlace = () => {
                 </MapContainer>
               ) : (
                 <p>Loading...</p>
+                
               )}
+              
+               
             </div>
-            <p className="mt-6 text-gray-500 text-2xl font-extrabold">Lieu : {address}</p>
-            <SellerInfo sellerId={user_id} />
-          </div>
-          <div className="md:w-1/2 p-4">
+                </div>
+                
+            {/*<SellerInfo sellerId={user_id} />*/}
+              </div>
+            </div>
+            <div className="md:w-1/2 p-4">
+              <div className="animate-slideIn">
+                <h2 className="text-3xl font-bold text-red-800 mb-4"><i className="fas fa-landmark mr-2"></i>{title}</h2>
+                <p className="text-gray-600 mb-4">
+                 {description}</p>
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="fas fa-star mr-2"></i>Points d intérêt</h3>
+                  <ul className="list-none text-gray-600">
+                    <li><i className="fas fa-church text-yellow-600 mr-2"></i>La Cathédrale Saint-Jean</li>
+                    <li><i className="fas fa-balance-scale text-blue-600 mr-2"></i>Le Palais de Justice historique</li>
+                    <li><i className="fas fa-archway text-green-600 mr-2"></i>Les traboules</li>
+                    <li><i className="fas fa-building text-purple-600 mr-2"></i>La place du Change</li>
+                  </ul>
+                </div>
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="far fa-clock mr-2"></i>Horaires de visite</h3>
+                  <p className="text-gray-600"><i className="fas fa-sun text-yellow-500 mr-2"></i>Accessible 24h/24, 7j/7</p>
+                  <p className="text-gray-600"><i className="fas fa-users text-blue-500 mr-2"></i>Visites guidées disponibles sur réservation</p>
+                </div>
+                <div className="mb-6">
+                  <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="fas fa-euro-sign mr-2"></i>Tarifs</h3>
+                  <p className="text-gray-600"><i className="fas fa-walking text-green-500 mr-2"></i>Accès gratuit au lieu</p>
+                  <p className="text-gray-600"><i className="fas fa-map-signs text-purple-500 mr-2"></i>Visite : à partir de <TarifsComponent tarifs={price.toString()} /> par personne</p>
+                </div>
+                <div className="flex space-x-4">
+                  <button className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition">
+                    <i className="fas fa-ticket-alt mr-2"></i>Réserver une visite
+                  </button>
+                  <button className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition">
+                    <i className="fas fa-heart mr-2"></i>Ajouter aux favoris
+                  </button>
+                </div>
+                <div className="md:w-1/2 p-4">
             <div className="uppercase tracking-wide text-green-700 font-semibold text-lg ">
-              {new Date().toLocaleDateString()}
-            </div>
-            <h1 className="mt-1 text-3xl font-semibold text-gray-900">{title}</h1>
-            <TarifsComponent tarifs={price.toString()} />
-            <p className="mt-4 text-gray-500">{description}</p>
-            <div className="mt-6">
-              <button
+             <button
                 onClick={handleFavorite}
                 disabled={isFavorite}
                 className={`mr-3 inline-flex items-center px-3 py-1 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${isFavorite ? 'bg-gray-200' : ''}`}
               >
                 <i className="fas fa-heart mr-2"></i> {isFavorite ? 'Ajouté aux favoris' : 'Ajouter aux favoris'}
               </button>
+            </div>
+          
+            <div className="mt-6">
+              
               <button
                 onClick={handleReport}
                 disabled={isReported}
@@ -195,16 +273,20 @@ const FichePlace = () => {
                   Envoyer
                 </button>
               ) : (
-                <div className="m-6">
-                  <a href="/login" className="bg-green-500 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
-                    Connectez-vous pour envoyer un message
+                <div className="m-1">
+                  <a href="/login" className="bg-green-500 hover:bg-green-700 text-sm text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    envoyer un message
                   </a>
                 </div>
               )}
             </form>
           </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+     
+     
     </div>
   );
 };

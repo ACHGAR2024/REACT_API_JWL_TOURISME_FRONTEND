@@ -5,6 +5,9 @@ import axios from 'axios';
 import { getCityCoordinates } from '../utils/geocode'; // Assurez-vous que le chemin d'importation est correct
 
 const MaCarte = () => {
+
+
+  
   const [termeRecherche, setTermeRecherche] = useState('');
   const [marqueurs, setMarqueurs] = useState([]);
 
@@ -56,7 +59,7 @@ const MaCarte = () => {
   );
 
   return (
-    <div style={{ position: 'relative', height: '100vh', width: '100%' }}>
+    <div style={{ position: 'relative', height: '100%', width: '100%' }}>
       <input
         type="text"
         placeholder="Rechercher..."
@@ -67,13 +70,15 @@ const MaCarte = () => {
           top: '10px',
           left: '50%',
           transform: 'translateX(-50%)',
-          padding: '10px',
+          padding: '2px',
+          paddingLeft: '12px',
+          opacity: 0.8,
           borderRadius: '5px',
-          border: '1px solid #ccc',
+          border: '1px solid #000',
           zIndex: 1000
         }}
       />
-      <MapContainer center={[48.8566, 2.3522]} zoom={5} style={{ height: '100%', width: '100%' }}>
+      <MapContainer center={[45.75883000, 4.8322000]} zoom={11} style={{ height: '100%', width: '100%' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
