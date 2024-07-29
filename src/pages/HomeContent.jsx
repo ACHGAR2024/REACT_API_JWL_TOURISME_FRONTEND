@@ -3,6 +3,7 @@ import axios from 'axios';
 //import { AuthContext } from '../context/AuthContext'; 
 import { useNavigate, Link } from 'react-router-dom';
 import CartePlaces from './CartePlaces';
+import ActualitesLyon from '../components/ActualitesLyon';
 
 const HomeContent = () => {
   const [places, setPlaces] = useState([]);
@@ -224,23 +225,8 @@ const HomeContent = () => {
             </div>
           </div>
         </section>
-
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">
-            <i className="fas fa-newspaper mr-2 text-indigo-600"></i>
-            Actualités
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">Nouvelle exposition au Musée des Beaux-Arts</h3>
-              <p>Découvrez la nouvelle exposition temporaire dédiée à l art moderne...</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2">Rénovation du Parc de la Tête d Or</h3>
-              <p>Le parc emblématique de Lyon fait peau neuve avec de nouveaux aménagements...</p>
-            </div>
-          </div>
-        </section>
+<ActualitesLyon />
+       
       <section className="mb-8"><div className="mt-8 pt-8 border-t border-blue-700 text-center">
             
           </div>

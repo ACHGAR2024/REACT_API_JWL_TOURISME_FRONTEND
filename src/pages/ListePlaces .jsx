@@ -2,16 +2,30 @@ import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { UserContext } from '../context/UserContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Notiflix from 'notiflix';
 
 const ListePlaces = () => {
   const [places, setPlaces] = useState([]);
-
+  const navigate = useNavigate();
   const { token } = useContext(AuthContext);
   const user = useContext(UserContext);
 
+  const fetchPlaces = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/places', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
 
+      setPlaces(response.data.places || []);
+    } catch (error) {
+      console.error('Erreur lors de la récupération des places', error);
+    }
+  };
 
   useEffect(() => {
     const fetchPlaces = async () => {
@@ -24,7 +38,6 @@ const ListePlaces = () => {
           },
         });
 
-        //console.log('Places:', response.data);
         setPlaces(response.data.places || []);
       } catch (error) {
         console.error('Erreur lors de la récupération des places', error);
@@ -43,9 +56,20 @@ const ListePlaces = () => {
         },
       });
       setPlaces(places.filter(place => place.id !== id));
-      //console.log(`Place ${id} supprimée.`);
     } catch (error) {
-      console.error('Erreur lors de la suppression de l\'place', error);
+      console.error('Erreur lors de la suppression de la place', error);
+    }
+  
+    try {
+      await axios.delete(`http://127.0.0.1:8000/api/places/${id}/photos`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      fetchPlaces();
+    } catch (error) {
+      console.error('Erreur lors de la suppression des photos de la place', error);
     }
   };
 
@@ -82,19 +106,25 @@ const ListePlaces = () => {
               <th className="py-3 px-6 text-left">Description</th>
               <th className="py-3 px-6 text-center">Prix</th>
               <th className="py-3 px-6 text-center">Date</th>
-            
               <th className="py-3 px-6 text-center">Actions</th>
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
             {userPlaces.map(place => (
               <tr key={place.id} className="border-b border-gray-200 hover:bg-gray-100">
-                 <td className="py-3 px-6 text-left whitespace-nowrap">
-                  <span className="font-medium"><img src={`http://127.0.0.1:8000${place.photo}`} alt={place.title}  className="w-20 h-20 rounded-lg object-cover hover:cursor-zoom-in" onClick={() => window.open(`http://127.0.0.1:8000${place.photo}`)}/></span>
-                    </td>
+                <td className="py-3 px-6 text-left whitespace-nowrap">
+                  <span className="font-medium">
+                    <img
+                      src={`http://127.0.0.1:8000${place.photo}`}
+                      alt={place.title}
+                      className="w-20 h-20 rounded-lg object-cover hover:cursor-zoom-in"
+                      onClick={() => window.open(`http://127.0.0.1:8000${place.photo}`)}
+                    />
+                  </span>
+                </td>
                 <td className="py-3 px-6 text-left">
                   <a href={`/fiche-place/${place.id}`} className="font-medium text-blue-500 hover:underline">
-                   <span>{place.title}</span>
+                    <span>{place.title}</span>
                   </a>
                 </td>
                 <td className="py-3 px-6 text-center">
@@ -106,20 +136,35 @@ const ListePlaces = () => {
                 <td className="py-3 px-6 text-center">
                   <span>{place.publication_date}</span>
                 </td>
-               
                 <td className="py-3 px-6 text-center">
-                  <div className="flex item-center justify-center">
-                    <Link to={`/edit-place/${place.id}`} className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                      <i className="fa fa-pencil"></i>
-                    </Link>
-                    <button
-                      onClick={() => confirmDelete(place.id)}
-                      className="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
-                    >
-                      <i className="fa fa-trash-o"></i>
-                    </button>
-                  </div>
-                </td>
+  <div className="flex items-center justify-center space-x-4">
+    <Link
+      to={`/ajout-photos-place/${place.id}`}
+      className="transform hover:text-purple-500 hover:scale-110 transition duration-300"
+    >
+      <i className="fa fa-image text-xl"></i>
+    </Link>
+    <button
+      className="bg-blue-500 text-white p-2 rounded transition duration-300 hover:bg-blue-600"
+      onClick={() => navigate(`/places/${place.id}/photos`)}
+    >
+      Gérer les photos
+    </button>
+    <Link
+      to={`/edit-place/${place.id}`}
+      className="transform hover:text-purple-500 hover:scale-110 transition duration-300"
+    >
+      <i className="fa fa-pencil text-xl"></i>
+    </Link>
+    <button
+      onClick={() => confirmDelete(place.id)}
+      className="transform hover:text-red-500 hover:scale-110 transition duration-300"
+    >
+      <i className="fa fa-trash-o text-xl"></i>
+    </button>
+  </div>
+</td>
+
               </tr>
             ))}
           </tbody>

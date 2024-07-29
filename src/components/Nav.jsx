@@ -18,7 +18,7 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
             src="https://www.info-flash.com/images/info-flash/69/28153/logo/logo-lyon-1671121315.jpeg"
             alt="Logo"
           />
-          <span className="text-gray-600 hover:text-gray-800 text-lg font-semibold">Office de Tourisme de Lyon</span>
+          <span className="text-gray-600 hover:text-gray-800 text-lg font-semibold">API Tourisme de Lyon</span>
         </Link>
 
         {/* Hamburger menu button */}

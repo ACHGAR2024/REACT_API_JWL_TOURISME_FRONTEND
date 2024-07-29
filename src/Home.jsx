@@ -23,6 +23,8 @@ import EditPlace from './components/EditPlace';
 import DeletePlace from './components/DeletePlace';
 import EditCategorie from './components/EditCategorie';
 import DeleteCategorie from './components/DeleteCategorie';
+import PhotoManager from './components/PhotoManager';
+import ReservationForm from './components/ReservationForm';
 
 // Page Components
 import HomeContent from './pages/HomeContent';
@@ -35,6 +37,8 @@ import FichePlace from './pages/FichePlace';
 import Aide from './pages/Aide';
 import CartePlaces from './pages/CartePlaces';
 import LieuPlacesRecherche from './pages/LieuPlacesRecherche';
+import AddPhotosPlace from './pages/AddPhotosPlace';
+import ListeReservationsAdmin from './pages/ListeReservationsAdmin';
 
 // ** Context Imports **
 import { AuthProvider, AuthContext } from './context/AuthContext';
@@ -97,6 +101,15 @@ const Home = () => {
           {isAuthenticated && <Route path="/delete-place/:id" element={<DeletePlace />} />}
           {isAuthenticated && <Route path="/edit-categorie/:id" element={<EditCategorie />} />}
           {isAuthenticated && <Route path="/delete-categorie/:id" element={<DeleteCategorie />} />}
+          {isAuthenticated && <Route path="/ajout-photos-place/:id" element={<AddPhotosPlace />} />}
+          {isAuthenticated && <Route path="/places/:id/photos" element={<PhotoManager />} />}
+    
+
+          {isAuthenticated &&  <Route path="/reservations" element={<ListeReservationsAdmin />} />}
+          {isAuthenticated && <Route path="/reservations/new" element={<ReservationForm isEditing={false} />} />}
+          {isAuthenticated && <Route path="/edit-reservation/:id" element={<ReservationForm isEditing={true} />} />}
+
+         
 
         </Routes>
       </PageWrapper>
