@@ -23,7 +23,7 @@ const UserProfile = () => {
 
   return (
     <div>
-      <div className="bg-white rounded-lg shadow-lg p-2 pl-20 mt-16 mx-20 z-50 ">
+      <div className="bg-white rounded-lg shadow-lg p-2 pl-64 mt-14 mx-0 z-50 ">
         <ul className="flex items-center">
           <li className="px-4 py-2">
             {imageURL && (

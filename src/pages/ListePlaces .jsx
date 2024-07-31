@@ -95,7 +95,7 @@ const ListePlaces = () => {
   const userPlaces = places.filter(place => user && user.id === place.user_id);
 
   return (
-    <div id="mesplaces" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn">
+    <div id="mesplaces" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20">
       <h2 className="text-2xl font-bold mb-4">Vos places récentes</h2>
       <div className="overflow-x-auto">
         <table className="w-full table-auto">

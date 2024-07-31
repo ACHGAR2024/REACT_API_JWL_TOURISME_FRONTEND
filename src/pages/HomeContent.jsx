@@ -84,8 +84,8 @@ const HomeContent = () => {
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-300">
             <i className="fas fa-map-marked-alt mr-2 text-red-600 dark:text-red-400"></i>
-            Carte interactive de Lyon{" "}
-            <i className="fas fa-map-marker-alt mr-2 text-red-500 dark:text-red-400"></i>
+            Carte interactive de Lyon
+            
           </h2>
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md h-96 border-2 border-blue-300 dark:border-blue-600 z-30">
             <CartePlaces />

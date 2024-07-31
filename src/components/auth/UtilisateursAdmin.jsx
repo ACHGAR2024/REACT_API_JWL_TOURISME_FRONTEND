@@ -95,14 +95,14 @@ const UtilisateursAdmin = () => {
   
 
   return (
-    <div id="utilisateurs" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn mb-8">
+    <div id="utilisateurs" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn mb-8 pt-20">
     <div className="container mx-auto px-4 py-4">
       {notification && (
         <Notification type={notification.type} message={notification.message} />
       )}
       <h1 className="text-2xl font-bold mb-6">Gestion des utilisateurs</h1>
 
-      <div className="bg-white shadow-md rounded-lg overflow-hidden mb-6">
+      <div  className="bg-white shadow-md rounded-lg overflow-hidden mb-6">
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>

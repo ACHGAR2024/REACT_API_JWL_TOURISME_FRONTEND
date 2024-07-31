@@ -82,7 +82,7 @@ const ListePlacesAdmin = () => {
   };
 
   return (
-    <div id="places" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn">
+    <div id="places" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20">
       <h2 className="text-2xl font-bold mb-4">Liste des places</h2>
       <div className="overflow-x-auto">
         <table className="w-full table-auto">

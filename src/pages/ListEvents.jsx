@@ -54,7 +54,7 @@ const ListEvents = () => {
   };
 
   return (
-    <div id="events" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn">
+    <div id="events" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20">
       <h2 className="text-2xl font-bold mb-4">Liste des événements</h2>
       <Link to="/event-new" className="mb-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
         <i className="fa fa-plus-circle fa-fw pr-1"></i> Ajouter un événement
