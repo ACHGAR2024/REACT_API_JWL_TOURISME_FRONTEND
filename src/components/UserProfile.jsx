@@ -1,9 +1,10 @@
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext } from "react";
 
-import { AuthContext } from '../context/AuthContext';
-import { UserContext } from '../context/UserContext';
-import DashboardContent from './DashboardContent';
-import DashboardAdminContent from './DashboardAdminContent';
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
+import DashboardContent from "./DashboardContent";
+import DashboardAdminContent from "./DashboardAdminContent";
+import DashboardAgentContent from "./DashboardAgentContent";
 
 const UserProfile = () => {
   const [imageURL, setImageURL] = useState(null);
@@ -22,20 +23,37 @@ const UserProfile = () => {
 
   return (
     <div>
-      <div className="bg-white rounded-lg shadow-lg p-6 mt-16 z-50">
+      <div className="bg-white rounded-lg shadow-lg p-2 pl-20 mt-16 mx-20 z-50 ">
         <ul className="flex items-center">
-          <li className="px-4 py-2">{imageURL && <img src={imageURL} alt="Profil" className="w-10 h-10 rounded-full" />}</li>
+          <li className="px-4 py-2">
+            {imageURL && (
+              <img
+                src={imageURL}
+                alt="Profil"
+                className="w-10 h-10 rounded-full"
+              />
+            )}
+          </li>
           <li className="px-4">
-            {user.role === 'admin' ? (
-              <span className="font-bold">Bonjour Administrateur</span>
+            {user.role === "admin" ? (
+              <span className="font-bold dark:text-gray-950">
+                Bonjour Administrateur
+              </span>
             ) : (
-              <span>Bonjour {user.name}</span>
+              <span className="dark:text-gray-950">Bonjour {user.name}</span>
             )}
           </li>
         </ul>
       </div>
       <div>
-        {user.role === 'admin' ? <DashboardAdminContent /> : <DashboardContent />}
+      {user.role === "admin" ? (
+  <DashboardAdminContent />
+) : user.role === "agent" ? (
+  <DashboardAgentContent />
+) : (
+  <DashboardContent />
+)}
+
       </div>
     </div>
   );

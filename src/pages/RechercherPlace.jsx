@@ -113,7 +113,7 @@ const RechercherPlace = () => {
           <option value="asc">Prix croissant</option>
           <option value="desc">Prix décroissant</option>
         </select>
-        <a href="/carte-places">
+        <a href="/carte">
           <button className="bg-slate-400 hover:bg-slate-800 text-white p-2 rounded">
             Rechercher par carte
           </button>
@@ -141,7 +141,7 @@ const RechercherPlace = () => {
                     cat.name_cat === 'Musées' ? 'palette' :
                     cat.name_cat === 'Restaurants' ? 'utensils' :
                     cat.name_cat === 'Shopping' ? 'shopping-bag' :
-                    cat.name_cat === 'Événements' ? 'calendar-alt' :
+                    cat.name_cat === 'Sport' ? 'running' :
                     'landmark'
                   } 
                   ${
@@ -150,7 +150,7 @@ const RechercherPlace = () => {
                     cat.name_cat === 'Musées' ? 'text-yellow-900' :
                     cat.name_cat === 'Restaurants' ? 'text-yellow-600' :
                     cat.name_cat === 'Shopping' ? 'text-lime-600' :
-                    cat.name_cat === 'Événements' ? 'text-pink-300' :
+                    cat.name_cat === 'Sport' ? 'text-pink-500' :
                     'landmark'
                   } 
                   

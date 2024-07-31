@@ -74,6 +74,26 @@ const UtilisateursAdmin = () => {
     );
   };
 
+
+  const handleRoleToggle = async (userId, currentRole) => {
+    const newRole = currentRole === 'user' ? 'agent' : 'user';
+    try {
+      await axios.patch(`http://127.0.0.1:8000/api/users/${userId}/role`, { role: newRole }, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      });
+      setUsers(users.map(user => user.id === userId ? { ...user, role: newRole } : user));
+      Notification.success('Role mis à jour avec succès');
+    } catch (error) {
+      console.error('Erreur lors de la mise à jour du rôle', error);
+      Notification.error('Erreur lors de la mise à jour du rôle');
+      if (error.response) {
+        console.error('Erreur:', error.response.data);
+        Notification.error(error.response.data);
+      }
+    }
+  };
+  
+
   return (
     <div id="utilisateurs" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn mb-8">
     <div className="container mx-auto px-4 py-4">
@@ -108,14 +128,28 @@ const UtilisateursAdmin = () => {
                 <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    onClick={() => confirmDelete(user.id)}
-                    className="text-red-600 hover:text-red-900"
-                  >
-                    <i className="fas fa-trash"></i>
-                  </button>
-                </td>
+               
+<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+  <div className="flex items-center">
+<button
+    onClick={() => handleRoleToggle(user.id, user.role)}
+    onMouseEnter={() => Notiflix.Notify.info('Changement de rôle', {
+      position: 'center-top', timeout: 1000, clickToClose: true, showOnlyTheLastOne: true, pauseOnHover: true, distance: '100px', top: '100px', width: '300px'
+    })}
+    className="text-blue-600 hover:text-blue-900 ml-4"
+  >
+    <i className="fas fa-exchange-alt"></i> {/* Icône pour le changement de rôle */}
+  </button>
+  <button
+    onClick={() => confirmDelete(user.id)}
+    className="text-red-600 hover:text-red-900 ml-4"
+  >
+    <i className="fas fa-trash"></i>
+  </button>
+  </div>
+  
+</td>
+
               </tr>
             ))}
           </tbody>

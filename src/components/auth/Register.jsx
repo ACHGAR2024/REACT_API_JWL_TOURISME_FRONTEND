@@ -46,9 +46,9 @@ const Register = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen  bg-slate-300">
+    <div className="flex flex-col items-center justify-center h-screen ">
       <form onSubmit={handleSubmit(onSubmit)} className="max-w-md mx-auto bg-white shadow-xl rounded-lg p-4 space-y-4">
-        <h2 className="text-center text-lg font-semibold bg-blue-400 text-gray-800 p-2 rounded-md">
+        <h2 className="text-center text-lg font-semibold bg-blue-800 text-gray-200 p-2 rounded-md">
           <i className="fa fa-user-plus" aria-hidden="true"></i> Inscription
         </h2>
 
@@ -65,7 +65,7 @@ const Register = () => {
         
         <div className="input-group mb-4 relative">
           <span className="input-group-addon absolute inset-y-0 left-0 flex items-center pl-3">
-            <i className="fa fa-envelope-o fa-fw pr-1"></i>
+            <i className="fa fa-envelope-o fa-fw pr-1 dark:text-gray-900"></i>
           </span>
           <input
             name="email"
@@ -80,7 +80,7 @@ const Register = () => {
         
         <div className="input-group mb-4 relative">
           <span className="input-group-addon absolute inset-y-0 left-0 flex items-center pl-3">
-            <i className="fa fa-key fa-fw pr-1"></i>
+            <i className="fa fa-key fa-fw pr-1 dark:text-gray-900"></i>
           </span>
           <input
             name="password"
@@ -90,7 +90,7 @@ const Register = () => {
             className="form-control pl-10 p-2 rounded-md w-full"
           />
           <span className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={togglePasswordVisibility}>
-            <i className={`fa ${showPassword ? "fa-eye-slash" : "fa-eye"}`}></i>
+            <i className={`fa ${showPassword ? "fa-eye-slash dark:text-gray-900" : "fa-eye dark:text-gray-900"}`}></i>
           </span>
         </div>
         {errors.password && <span className="text-red-500">Ce champ est requis</span>}
@@ -105,7 +105,7 @@ const Register = () => {
             type={showPasswordConfirmation ? "text" : "password"}
             {...register('password_confirmation', { required: true })}
             placeholder="Confirm Password"
-            className="form-control pl-10 p-2 rounded-md w-full"
+            className="form-control pl-10 p-2 rounded-md w-full dark:bg-slate-600 bg-gray-500 dark:text-gray-100 text-gray-100"
           />
           <span className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer" onClick={togglePasswordConfirmationVisibility}>
             <i className={`fa ${showPasswordConfirmation ? "fa-eye-slash" : "fa-eye"}`}></i>
@@ -121,7 +121,7 @@ const Register = () => {
           {...register('role', { required: true })}
         />
 
-        <button type="submit" className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded w-full">
+        <button type="submit" className="bg-red-500 hover:bg-red-600 text-white  font-bold py-2 px-4 rounded w-full">
           Enregistrer
         </button>
 

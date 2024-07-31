@@ -80,49 +80,50 @@ const CartePlaces = () => {
 
   return (
     <div style={{ position: 'relative', height: '100%', width: '100%' }} className="z-0">
-      <input
-        type="text"
-        placeholder="Rechercher... "
-        value={termeRecherche}
-        onChange={(e) => setTermeRecherche(e.target.value)}
-        style={{
-          position: 'absolute',
-          top: '10px',
-          left: '50%',
-          transform: 'translateX(-50%)',
-          padding: '2px',
-          paddingLeft: '12px',
-          opacity: 0.8,
-          borderRadius: '5px',
-          border: '1px solid #000',
-          zIndex: 1000
-        }}
+    <input
+      type="text"
+      placeholder="Rechercher... "
+      value={termeRecherche}
+      onChange={(e) => setTermeRecherche(e.target.value)}
+      className="absolute top-2 left-1/2 transform -translate-x-1/2 p-2 pl-4 opacity-80 rounded border  z-50
+        bg-white dark:bg-gray-800 text-black dark:text-white border-black dark:border-white"
+      style={{
+        zIndex: 1000,
+      }}
+    />
+    <MapContainer center={[45.75883000, 4.8322000]} zoom={14} style={{ height: '100%', width: '100%' }}>
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      <MapContainer center={[45.75883000, 4.8322000]} zoom={14} style={{ height: '100%', width: '100%' }}>
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        {marqueursFiltres.length > 0 ? (
-          marqueursFiltres.map((marqueur, index) => (
-            <Marker key={index} position={marqueur.position} icon={customIcon(marqueur.type)}>
-              <Popup className='p-2'>
-                <div className="text-center">
-                  <a href={`/fiche-place/${marqueur.id}`} className="text-md font-bold text-red-800">{marqueur.title}
+      {marqueursFiltres.length > 0 ? (
+        marqueursFiltres.map((marqueur, index) => (
+          <Marker key={index} position={marqueur.position} icon={customIcon(marqueur.type)}>
+            <Popup className="p-2">
+              <div className="text-center">
+                <a href={`/fiche-place/${marqueur.id}`} className="text-md font-bold text-red-800 dark:text-red-400">
+                  {marqueur.title}
                   <br />
                   <div className="flex items-center justify-center mt-3">
-                  <img className="h-10 object-cover rounded-lg animate-fadeIn" src={`http://127.0.0.1:8000${marqueur.photo}`} alt={marqueur.title} />
+                    <img
+                      className="h-10 object-cover rounded-lg animate-fadeIn"
+                      src={`http://127.0.0.1:8000${marqueur.photo}`}
+                      alt={marqueur.title}
+                    />
                   </div>
-                  <p className="mt-2 text-md  font-semibold"><i className="fas fa-map-marker-alt text-red-800"></i>  {marqueur.address}</p>
-               </a> </div>
-              </Popup>
-            </Marker>
-          ))
-        ) : (
-          <p>Loading...</p>
-        )}
-      </MapContainer>
-    </div>
+                  <p className="mt-2 text-md font-semibold">
+                    <i className="fas fa-map-marker-alt text-red-800 dark:text-red-400"></i> {marqueur.address}
+                  </p>
+                </a>
+              </div>
+            </Popup>
+          </Marker>
+        ))
+      ) : (
+        <p>Loading...</p>
+      )}
+    </MapContainer>
+  </div>
   );
 };
 

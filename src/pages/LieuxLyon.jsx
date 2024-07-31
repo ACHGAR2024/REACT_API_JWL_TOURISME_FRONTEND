@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const Lieux = () => {
+const LieuxLyon = () => {
   const [places, setPlaces] = useState([]);
 
   // Fetching places
@@ -56,4 +56,4 @@ const Lieux = () => {
   );
 };
 
-export default Lieux;
+export default LieuxLyon;
