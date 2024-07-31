@@ -159,11 +159,11 @@ const FichePlace = () => {
     popupAnchor: [10, 5]
   });
   return (
-    <div className="container mx-auto px-4 py-8 mt-20 mb-40 z-40">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden animate-fadeIn">
+    <div className="container mx-auto px-4  py-12 mt-16 mb-40 z-40">
+      <div className="bg-white shadow-lg rounded-lg overflow-hidden animate-fadeIn pt-12">
         <div className="md:flex">
           <div className="md:w-1/2 p-4">
-            <div className="relative h-96 mb-4">
+            <div className="relative h-96 mb-20">
               <Slider {...settings}>
               <div key="0"className="relative h-96 mb-4">
                     <img className="w-full h-full object-cover rounded-lg animate-fadeIn" src={`http://127.0.0.1:8000${photo}`} alt={title} />
@@ -175,11 +175,11 @@ const FichePlace = () => {
                 ))}
               </Slider>
             </div>
-            <div className="mt-6">
+            <div className="mb-52">
               <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="fas fa-map-marker-alt mr-2"></i>Localisation</h3>
               <p className="mt-6 text-gray-500 text-2xl font-extrabold">{address}</p>
               <div className="h-64 bg-gray-300 rounded-lg">
-                <div className="h-64 mb-4 mt-5">
+                <div className="h-96  mt-5 ">
                   {position ? (
                     <MapContainer center={position} zoom={13} className="h-full z-30 rounded-xl">
                     <TileLayer
@@ -192,7 +192,7 @@ const FichePlace = () => {
                         <a href={`/fiche-place/${id}`} className="text-md font-bold text-red-800">{title}</a>
                         <br></br>
                         
-                        <img className="w-full h-full object-cover rounded-lg animate-fadeIn" src={`http://127.0.0.1:8000${photo}`} alt={title} />
+                        <img className="h-40 w-40 object-cover rounded-lg animate-fadeIn" src={`http://127.0.0.1:8000${photo}`} alt={title} />
 </div>
                       </Popup>
                     </Marker>
@@ -208,15 +208,7 @@ const FichePlace = () => {
             <div className="animate-slideIn">
               <h2 className="text-3xl font-bold text-red-800 mb-4"><i className={`fas fa-${type} mr-2`}></i>{title}</h2>
               <p className="text-gray-600 mb-4">{description}</p>
-              <div className="mb-6">
-                <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="fas fa-star mr-2"></i>Points d’intérêt</h3>
-                <ul className="list-none text-gray-600">
-                  <li><i className="fas fa-church text-yellow-600 mr-2"></i>La Cathédrale Saint-Jean</li>
-                  <li><i className="fas fa-balance-scale text-blue-600 mr-2"></i>Le Palais de Justice historique</li>
-                  <li><i className="fas fa-archway text-green-600 mr-2"></i>Les traboules</li>
-                  <li><i className="fas fa-building text-purple-600 mr-2"></i>La place du Change</li>
-                </ul>
-              </div>
+              
               <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-2 text-red-600"><i className="far fa-clock mr-2"></i>Horaires de visite</h3>
                 <p className="text-gray-600"><i className="fas fa-sun text-yellow-500 mr-2"></i>Accessible 24h/24, 7j/7</p>

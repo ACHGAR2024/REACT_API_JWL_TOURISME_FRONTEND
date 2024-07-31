@@ -87,7 +87,7 @@ const ListeReservationsAdmin = ({ isEditing }) => {
     <div id="reservations" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn">
       <h2 className="text-2xl font-bold mb-4">Liste des lieux de réservations par évènement</h2>
       <Link
-        to="/reservations/new"
+        to="/reservations-new"
         className="mb-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
       >
         <i className="fa fa-plus-circle fa-fw pr-1"></i> Ajouter un lieu de réservation
@@ -152,7 +152,7 @@ const ListeReservationsAdmin = ({ isEditing }) => {
 };
 
 ListeReservationsAdmin.propTypes = {
-  isEditing: PropTypes.func.isRequired, // Assurez-vous que c'est une fonction
+  isEditing: PropTypes.bool,
 };
 
 export default ListeReservationsAdmin;

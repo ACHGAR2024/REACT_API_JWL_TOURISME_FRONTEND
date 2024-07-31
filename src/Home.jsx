@@ -25,6 +25,9 @@ import EditCategorie from './components/EditCategorie';
 import DeleteCategorie from './components/DeleteCategorie';
 import PhotoManager from './components/PhotoManager';
 import ReservationForm from './components/ReservationForm';
+import EventForm from './components/EventForm';
+import EditEvent from './components/EditEvent';
+
 
 // Page Components
 import HomeContent from './pages/HomeContent';
@@ -39,10 +42,17 @@ import CartePlaces from './pages/CartePlaces';
 import LieuPlacesRecherche from './pages/LieuPlacesRecherche';
 import AddPhotosPlace from './pages/AddPhotosPlace';
 import ListeReservationsAdmin from './pages/ListeReservationsAdmin';
+import ListEvents from './pages/ListEvents';
+import Carte from './pages/Carte';
+import Lieux from './pages/Lieux';
+import Restaurants from './pages/Restaurants';
+import Musees from './pages/Musees';
 
 // ** Context Imports **
 import { AuthProvider, AuthContext } from './context/AuthContext';
 import { UserProvider } from './context/UserContext';
+
+
 
 // ** Main Application Component **
 
@@ -68,6 +78,7 @@ PageWrapper.propTypes = {
 const Home = () => {
   const { isAuthenticated, login, logout } = useContext(AuthContext);
 
+
   return (
     <Router>
       <Nav isAuthenticated={isAuthenticated} handleLogout={logout} />
@@ -79,6 +90,11 @@ const Home = () => {
           <Route path="/aide" element={<Aide />} />
           <Route path="/carte-places" element={<CartePlaces />} />
           <Route path="/lieux-places" element={<LieuPlacesRecherche />} />
+          <Route path="/carte" element={<Carte />} />
+          <Route path="/lieux" element={<Lieux />} />
+          <Route path="/restaurants" element={<Restaurants />} />
+          <Route path="/musees" element={<Musees />} />
+
 
           {/* Protected Routes */}
           <Route path="/rechercher-place" element={<RechercherPlace />} />
@@ -106,10 +122,12 @@ const Home = () => {
     
 
           {isAuthenticated &&  <Route path="/reservations" element={<ListeReservationsAdmin />} />}
-          {isAuthenticated && <Route path="/reservations/new" element={<ReservationForm isEditing={false} />} />}
+          {isAuthenticated && <Route path="/reservations-new" element={<ReservationForm isEditing={false} />} />}
           {isAuthenticated && <Route path="/edit-reservation/:id" element={<ReservationForm isEditing={true} />} />}
 
-         
+          {isAuthenticated &&  <Route path="/events" element={<ListEvents />} />}
+          {isAuthenticated && <Route path="/event-new" element={<EventForm />} />}
+          {isAuthenticated && <Route path="/edit-event/:id" element={<EditEvent />} />}
 
         </Routes>
       </PageWrapper>

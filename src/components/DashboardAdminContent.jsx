@@ -10,6 +10,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import { UserContext } from '../context/UserContext';
 import ListeReservationsAdmin from '../pages/ListeReservationsAdmin';
+import ListEvents from '../pages/ListEvents';
 
 
 const DashboardCard = ({ title, value, icon, color}) => (
@@ -38,13 +39,22 @@ const QuickActions = () => (
       <a href="/deposer_place" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
         <i className="fa fa-plus-circle fa-fw pr-1"></i> Nouvelle place
       </a>
-      <a href="/reservations/new" className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
+      <a href="/reservations-new" className="bg-purple-500 hover:bg-purple-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
         <i className="fa fa-plus-circle fa-fw pr-1"></i> Nouveau lieu de réservation
       </a>
+      <a href="/events/new" className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
+        <i className="fa fa-plus-circle fa-fw pr-1"></i> Nouveau evenement
+      </a>
+
       <a href="/messages-management" className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
         <i className="fa fa-envelope fa-fw pr-1"></i> Voir mes messages
       </a>
-      
+      <a href="#signalements" className="bg-yellow-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
+        <i className="fa fa-flag text-red-500  "></i> Gestion des signalements
+      </a>
+      <a href="/profil-user-update" className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
+        <i className="fa fa-cog fa-fw pr-1"></i> Paramètres
+      </a>
       <a href="#utilisateurs" className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
         <i className="fa fa-users fa-fw pr-1"></i> Utilisateurs
       </a>
@@ -54,15 +64,13 @@ const QuickActions = () => (
       <a href="#places" className="bg-cyan-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
         <i className="fa fa-address-book  "></i> Liste places
       </a>
+      <a href="#events" className="bg-sky-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
+        <i className="fa fa-sitemap "></i> Liste Evénements
+      </a>
       <a href="#reservations" className="bg-sky-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
         <i className="fa fa-address-book  "></i> Liste lieux de Reservations
       </a>
-      <a href="#signalements" className="bg-yellow-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
-        <i className="fa fa-flag text-red-500  "></i> Gestion des signalements
-      </a>
-      <a href="/profil-user-update" className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
-        <i className="fa fa-cog fa-fw pr-1"></i> Paramètres
-      </a>
+     
       <a href="/" className="bg-sky-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center">
       
         <i className="fa fa-sign-out  "></i> Page d&#39;accueil 
@@ -157,7 +165,9 @@ const DashboardAdminContent = () => {
       <UtilisateursAdmin />
       <ListeCategories />
       <ListePlacesAdmin />
+      <ListEvents />
       <ListeReservationsAdmin />
+
 
     </div>
   );

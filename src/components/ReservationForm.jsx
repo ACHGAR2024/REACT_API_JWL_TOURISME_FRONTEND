@@ -112,15 +112,15 @@ const ReservationForm = ({ isEditing }) => {
   return (
     <div className="container mx-auto px-4 py-8 mt-20 mb-72 w-2/3">
       <h1 className="text-3xl font-bold mb-8 text-black">
-        {isEditing ? 'Modifier lieu de Réservation' : 'Créer un lieu de Réservation'}
+        {isEditing ? 'Modifier lieu de Réservation' : 'Créer un lieu Réservation'}
       </h1>
 
       {error && <div className="mb-4 text-red-600">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" >
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name_place_tiket">
-            Nom de lieu de Réservation
+            Nom de la Place
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

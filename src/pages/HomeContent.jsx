@@ -7,6 +7,7 @@ import ActualitesLyon from '../components/ActualitesLyon';
 
 const HomeContent = () => {
   const [places, setPlaces] = useState([]);
+  const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
 //const { isAuthenticated } = useContext(AuthContext); 
   const navigate = useNavigate();
@@ -36,6 +37,24 @@ const HomeContent = () => {
     fetchPlaces();
   }, []);
 
+  // Fetching events
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/api/events', {
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+        });
+        setEvents(response.data.events || []);
+      } catch (error) {
+        console.error('Erreur lors de la sélection des evenements', error);
+      }
+      };
+
+    fetchEvents();
+  }, []);
   // Fetching categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -66,7 +85,7 @@ const HomeContent = () => {
             <i className="fas fa-map-marked-alt mr-2 text-red-600"></i>
             Carte interactive de Lyon <i className="fas fa-map-marker-alt mr-2 text-red-500"></i>
           </h2>
-          <div className="bg-white p-4 rounded-lg shadow-md h-64 border-2 border-blue-300">
+          <div className="bg-white p-4 rounded-lg shadow-md h-96 border-2 border-blue-300 z-30">
             
               <CartePlaces /> 
              
@@ -79,13 +98,29 @@ const HomeContent = () => {
             <i className="fas fa-calendar-alt mr-2 text-orange-600"></i>
             Événements à venir
           </h2>
-          <div className="bg-red-100 p-4 rounded-lg shadow-md border-2 border-red-300">
-            <h3 className="text-xl font-semibold mb-2 text-red-700">
-              <i className="fas fa-lightbulb mr-2 text-yellow-500"></i>
-              Festival des Lumières
-            </h3>
-            <p className="text-red-600"><i className="far fa-calendar mr-2"></i>8-11 Décembre 2024</p>
-          </div>
+          {events
+  .filter(event => new Date(event.event_date) > new Date())
+  .sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
+  .slice(0, 2)
+  .map(event => {
+    const eventDate = new Date(event.event_date).toLocaleDateString('fr-FR');
+    const eventEndDate = new Date(event.event_end_date).toLocaleDateString('fr-FR');
+    return (
+      <div key={event.id} className="bg-red-100 p-4 rounded-lg shadow-md border-2 border-red-300 mt-4">
+        <h3 className="text-xl font-semibold mb-2 text-red-700">
+          <i className="fas fa-lightbulb mr-2 text-yellow-500"></i>
+          {event.title_event}
+        </h3>
+        <p className="text-orange-600">
+          <i className="far fa-calendar mr-2"></i>{eventDate} - {eventEndDate}
+        </p>
+      </div>
+    );
+  })}
+
+
+
+         
         </section>
 
         <section className="mt-8">
@@ -97,9 +132,9 @@ const HomeContent = () => {
           {latestPlaces.map(place => (
             <Link key={place.id} to={`/fiche-place/${place.id}`}>
               <div className="bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:transform hover:-translate-y-2">
-                <div className="relative h-36 bg-cover bg-center  " style={{ backgroundImage: `url(http://127.0.0.1:8000${place.photo})` }}>
+                <div className="relative h-40 bg-cover bg-center  " style={{ backgroundImage: `url(http://127.0.0.1:8000${place.photo})` }}>
                   <div className="absolute inset-0 bg-black/50 opacity-80 mt-28"></div>
-                  <div className="absolute inset-0 flex flex-col items-center p-32 justify-center">
+                  <div className="absolute inset-0 flex flex-col items-center p-5 mt-28 justify-center">
                     <h3 className="text-xs font-semibold text-white">{place.title}</h3>
                   </div>
                 </div>
@@ -191,40 +226,34 @@ const HomeContent = () => {
           </div>
         </section>
         <section className="mb-8 mt-4">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">
-            <i className="fas fa-calendar-alt mr-2 text-purple-600"></i>
-            Agenda des événements
-          </h2>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-2">Prochains événements à Lyon</h3>
-            <ul className="list-disc list-inside">
-              <li>Festival des Lumières - 8-11 Décembre 2024</li>
-              <li>Fête de la Musique - 21 Juin 2024</li>
-              <li>Biennale de la Danse - Septembre 2024</li>
-            </ul>
-          </div>
-        </section>
+  <h2 className="text-2xl font-bold mb-4 text-blue-800">
+    <i className="fas fa-calendar-alt mr-2 text-purple-600"></i>
+    Agenda des événements
+  </h2>
+  <div className="bg-white p-6 rounded-lg shadow-md">
+    <h3 className="text-xl font-semibold mb-2">Prochains événements à Lyon</h3>
+    <ul className="list-disc list-inside">
+      <li>Festival des Lumières - 8-11 Décembre 2024</li>
+      <li>Biennale de la Danse - Septembre 2024</li>
+    {events
+    .filter(event => new Date(event.event_date) > new Date())
+    .sort((a, b) => new Date(b.event_date) - new Date(a.event_date))
+    .slice(0, 3)
+    .map(event => {
+      const eventDate = new Date(event.event_date).toLocaleDateString('fr-FR');
+      const eventEndDate = new Date(event.event_end_date).toLocaleDateString('fr-FR');
+      return (
+        <>
+        <li>  {event.title_event} -  {eventDate} - {eventEndDate} </li>
+       </>
+      );
+    })}
+     </ul>
+  </div>
+</section>
 
-        <section className="mb-8">
-          <h2 className="text-2xl font-bold mb-4 text-blue-800">
-            <i className="fas fa-info-circle mr-2 text-blue-600"></i>
-            Informations pratiques
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2"><i className="fas fa-subway mr-2 text-red-600"></i>Transports</h3>
-              <p>Informations sur les transports en commun à Lyon</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2"><i className="fas fa-parking mr-2 text-blue-600"></i>Parkings</h3>
-              <p>Trouver un parking dans le centre-ville</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-semibold mb-2"><i className="fas fa-map-signs mr-2 text-green-600"></i>Offices de tourisme</h3>
-              <p>Localisations et horaires des offices de tourisme</p>
-            </div>
-          </div>
-        </section>
+
+
 <ActualitesLyon />
        
       <section className="mb-8"><div className="mt-8 pt-8 border-t border-blue-700 text-center">

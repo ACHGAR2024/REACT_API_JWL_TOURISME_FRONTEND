@@ -75,6 +75,7 @@ const ActualitesLyon = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <div className="bg-white p-6 rounded-lg shadow-md">
+              <a href="https://www.844.fr/public-transport/horaires-theoriques-du-reseau-transports-en-commun-lyonnais-tcl-sytral">
               <h3 className="text-xl font-semibold mb-2">
                 <i className="fas fa-subway mr-2 text-red-600"></i>Transports
               </h3>
@@ -87,8 +88,10 @@ const ActualitesLyon = () => {
                   </li>
                 ))}
               </ul>
+              </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
+              <a href="https://www.t-libr.fr/carte-interactive-t-libr/">
               <h3 className="text-xl font-semibold mb-2">
                 <i className="fas fa-parking mr-2 text-blue-600"></i>Parkings
               </h3>
@@ -101,8 +104,10 @@ const ActualitesLyon = () => {
                   </li>
                 ))}
               </ul>
+              </a>
             </div>
             <div className="bg-white p-6 rounded-lg shadow-md">
+              <a href="https://www.google.com/maps/place/Office+du+Tourisme+et+des+Congr%C3%A8s+de+la+M%C3%A9tropole+de+Lyon/@45.7574485,4.8322726,18.3z/data=!4m6!3m5!1s0x47f4ea52524c379d:0xf9d5cec9fb0755fe!8m2!3d45.7570797!4d4.8330122!16s%2Fg%2F1thgjbz7?entry=ttu" >
               <h3 className="text-xl font-semibold mb-2">
                 <i className="fas fa-map-signs mr-2 text-green-600"></i>Offices de tourisme
               </h3>
@@ -117,6 +122,7 @@ const ActualitesLyon = () => {
                   </li>
                 ))}
               </ul>
+              </a>
             </div>
           </div>
         </section>
