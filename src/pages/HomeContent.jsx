@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext,useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import CartePlaces from "./CartePlaces";
 import ActualitesLyon from "../components/ActualitesLyon";
-import DarkModeToggle from "../components/DarkModeToggle";
+
+import DarkModeContext from "../context/DarkModeContext";
 
 const HomeContent = () => {
   const [places, setPlaces] = useState([]);
   const [events, setEvents] = useState([]);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+  const { isDarkMode } = useContext(DarkModeContext);
 
   const handleCategoryClick = (category) => {
     navigate(`/rechercher-place?category=${category}`);
@@ -76,16 +78,19 @@ const HomeContent = () => {
   const latestPlaces = places.slice(0, 4);
 
   return (
-    <div className="left-0 right-0 w-full h-full pt-5 mb-20 bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+    <div
+      className={`left-0 right-0 w-full h-full pt-5 mb-20 bg-gray-100 ${
+        isDarkMode ? "dark:bg-gray-900 text-gray-100" : "text-gray-900"
+      }`}
+    >
       <header className="p-4">
-        <DarkModeToggle />
+       
       </header>
       <main className="container mx-auto px-8 pt-12 mb-24">
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-300">
             <i className="fas fa-map-marked-alt mr-2 text-red-600 dark:text-red-400"></i>
             Carte interactive de Lyon
-            
           </h2>
           <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md h-96 border-2 border-blue-300 dark:border-blue-600 z-30">
             <CartePlaces />
@@ -184,20 +189,19 @@ const HomeContent = () => {
                 to={category.lien}
                 className="text-center"
               >
-              <div
-                key={category.name}
-                className={`${category.color} p-4 rounded-lg shadow-md transition duration-300 hover:shadow-lg`}
-              >
-                <h3 className="text-xl font-semibold mb-2">
-                  <i className={`fas ${category.icon} mr-2`}></i>
-                  {category.name}
-                </h3>
-              </div>
+                <div
+                  key={category.name}
+                  className={`${category.color} p-4 rounded-lg shadow-md transition duration-300 hover:shadow-lg`}
+                >
+                  <h3 className="text-xl font-semibold mb-2">
+                    <i className={`fas ${category.icon} mr-2`}></i>
+                    {category.name}
+                  </h3>
+                </div>
               </Link>
             ))}
           </div>
         </section>
-
 
         <section className="mt-8">
           <h2 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-300">

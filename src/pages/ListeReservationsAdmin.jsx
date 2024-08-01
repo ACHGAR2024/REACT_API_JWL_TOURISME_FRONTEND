@@ -96,14 +96,14 @@ const ListeReservationsAdmin = ({ isEditing }) => {
   return (
     <div
       id="reservations"
-      className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn"
+      className="dark:text-gray-900 mt-8 bg-white rounded-lg shadow-md animate-slideIn  mb-8 pt-20 w-screen md:w-3/4 lg:w-3/4 xl:w-3/4 md:p-9"
     >
-      <h2 className="text-2xl font-bold mb-4">
+      <h2 className="text-2xl font-bold mb-4 ml-8">
         Liste des lieux de réservations par évènement
       </h2>
       <Link
         to="/reservations-new"
-        className="mb-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+        className="ml-12 mb-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
       >
         <i className="fa fa-plus-circle fa-fw pr-1"></i> Ajouter un lieu de
         réservation
@@ -114,7 +114,7 @@ const ListeReservationsAdmin = ({ isEditing }) => {
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">
                 Nom de lieu de réservation
-              </th>
+              </th> <th className="py-3 px-6 text-center">Actions</th>
               <th className="py-3 px-6 text-left">Adresse</th>
               <th className="py-3 px-6 text-left">Télephone</th>
               <th className="py-3 px-6 text-left">Date de début réservation</th>
@@ -122,7 +122,7 @@ const ListeReservationsAdmin = ({ isEditing }) => {
                 Date de fin de réservation
               </th>
               <th className="py-3 px-6 text-left">Événement</th>
-              <th className="py-3 px-6 text-center">Actions</th>
+             
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
@@ -134,24 +134,6 @@ const ListeReservationsAdmin = ({ isEditing }) => {
                 <td className="py-3 px-6 text-left whitespace-nowrap">
                   <span className="font-medium">
                     {reservation.name_place_tiket}
-                  </span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>{reservation.address_place}</span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>{reservation.telephone}</span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>{reservation.reservation_start_date}</span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>{reservation.reservation_end_date}</span>
-                </td>
-                <td className="py-3 px-6 text-left">
-                  <span>
-                    {events.find((event) => event.id === reservation.id_events)
-                      ?.title_event || "Événement inconnu"}
                   </span>
                 </td>
                 <td className="py-3 px-6 text-center">
@@ -171,6 +153,25 @@ const ListeReservationsAdmin = ({ isEditing }) => {
                     </button>
                   </div>
                 </td>
+                <td className="py-3 px-6 text-left">
+                  <span>{reservation.address_place}</span>
+                </td>
+                <td className="py-3 px-6 text-left">
+                  <span>{reservation.telephone}</span>
+                </td>
+                <td className="py-3 px-6 text-left">
+                  <span>{reservation.reservation_start_date}</span>
+                </td>
+                <td className="py-3 px-6 text-left">
+                  <span>{reservation.reservation_end_date}</span>
+                </td>
+                <td className="py-3 px-6 text-left">
+                  <span>
+                    {events.find((event) => event.id === reservation.id_events)
+                      ?.title_event || "Événement inconnu"}
+                  </span>
+                </td>
+                
               </tr>
             ))}
           </tbody>

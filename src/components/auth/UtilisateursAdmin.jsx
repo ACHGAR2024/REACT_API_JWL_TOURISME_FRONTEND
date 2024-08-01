@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const UtilisateursAdmin = () => {
   const [users, setUsers] = useState([]);
-  const [notification] = useState(null);
+
   const navigate = useNavigate();
   const fetchUsers = useCallback(async () => {
     try {
@@ -95,29 +95,25 @@ const UtilisateursAdmin = () => {
   
 
   return (
-    <div id="utilisateurs" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn mb-8 pt-20">
-    <div className="container mx-auto px-4 py-4">
-      {notification && (
-        <Notification type={notification.type} message={notification.message} />
-      )}
-      <h1 className="text-2xl font-bold mb-6">Gestion des utilisateurs</h1>
-
-      <div  className="bg-white shadow-md rounded-lg overflow-hidden mb-6">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+    <div id="utilisateurs" className="dark:text-gray-900  bg-white rounded-lg shadow-md animate-slideIn  pt-20 w-screen md:w-3/4 lg:w-2/3 xl:w-2/3 md:p-9">
+    
+    <h1 className="text-2xl font-bold mb-6 dark:text-gray-800 pl-8">Gestion des utilisateurs</h1>
+  
+    <div className="bg-white shadow-md rounded-lg overflow-hidden ">
+      <table className="divide-y divide-gray-200 ">
+      <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rôle</th>
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rôle</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {users.map(user => (
               <tr key={user.id}>
-                <td className="px-6 py-4 whitespace-nowrap">{user.id}</td>
+                
                 <td className="px-6 py-4 whitespace-nowrap">
                 <img 
             className="h-10 w-10 rounded-full" 
@@ -126,10 +122,7 @@ const UtilisateursAdmin = () => {
           />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{user.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
-               
-<td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
   <div className="flex items-center">
 <button
     onClick={() => handleRoleToggle(user.id, user.role)}
@@ -149,6 +142,9 @@ const UtilisateursAdmin = () => {
   </div>
   
 </td>
+                <td className="px-6 py-4 whitespace-nowrap">{user.role}</td>
+               <td className="px-6 py-4 whitespace-nowrap">{user.email}</td>
+
 
               </tr>
             ))}
@@ -156,7 +152,7 @@ const UtilisateursAdmin = () => {
         </table>
       </div>
     </div>
-  </div>
+
   );
 };
 

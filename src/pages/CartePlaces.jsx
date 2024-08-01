@@ -28,7 +28,7 @@ const CartePlaces = () => {
                   address: lieu.address,
                   id: lieu.id,
                   title: lieu.title,
-                  type: lieu.type // Assuming type is available in lieu
+                  type: lieu.type 
                 };
               }
             } catch (error) {
@@ -64,7 +64,11 @@ const CartePlaces = () => {
   // Définir customIcon en dehors de la fonction MaCarte
   const customIcon = (type) => new L.divIcon({
     html: `<i class="fas fa-${type} text-2xl text-${
-      ["red", "orange", "yellow", "green", "blue", "purple"][
+      ["red", "gray", "yellow", "green", "bleu", "indigo"][
+        Math.floor(Math.random() * 6)
+      ]
+    }-700 dark:text-${
+      ["red", "gray", "red", "green", "bleu", "indigo"][
         Math.floor(Math.random() * 6)
       ]
     }-700"></i>`,
@@ -101,7 +105,7 @@ const CartePlaces = () => {
           <Marker key={index} position={marqueur.position} icon={customIcon(marqueur.type)}>
             <Popup className="p-2">
               <div className="text-center">
-                <a href={`/fiche-place/${marqueur.id}`} className="text-md font-bold text-red-800 dark:text-red-400">
+                <a href={`/fiche-place/${marqueur.id}`} className="text-md font-bold">
                   {marqueur.title}
                   <br />
                   <div className="flex items-center justify-center mt-3">

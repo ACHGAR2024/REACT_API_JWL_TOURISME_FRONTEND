@@ -22,8 +22,8 @@ const UserProfile = () => {
   }
 
   return (
-    <div>
-      <div className="bg-white rounded-lg shadow-lg p-2 pl-64 mt-14 mx-0 z-50 ">
+    <div className="flex flex-col items-right">
+      <div className="bg-white  shadow-lg  mt-14 z-50 fixed top-0 right-0 rounded-md ">
         <ul className="flex items-center">
           <li className="px-4 py-2">
             {imageURL && (
@@ -45,7 +45,7 @@ const UserProfile = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div className="mt-14">
       {user.role === "admin" ? (
   <DashboardAdminContent />
 ) : user.role === "agent" ? (

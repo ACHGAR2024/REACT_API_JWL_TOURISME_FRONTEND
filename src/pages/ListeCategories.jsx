@@ -61,10 +61,14 @@ const ListeCategories = () => {
   };
 
   return (
-    <div id="categories" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20">
-      <h2 className="text-2xl font-bold mb-4">Liste des catégories</h2>
-      <div className="overflow-x-auto">
-        <table className="w-full table-auto">
+    <div id="categories" className="dark:text-gray-900 mt-8 bg-white rounded-lg shadow-md animate-slideIn  mb-8 pt-20 w-screen md:w-3/4 lg:w-2/3 xl:w-2/3 md:p-9 sm:p-4">
+    
+    <h1 className="text-2xl font-bold mb-6 dark:text-gray-800 pl-8">Liste des catégories</h1>
+  
+    <div className="bg-white shadow-md rounded-lg overflow-hidden ">
+      <table className="divide-y divide-gray-200 m-8">
+      
+    
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">ID</th>

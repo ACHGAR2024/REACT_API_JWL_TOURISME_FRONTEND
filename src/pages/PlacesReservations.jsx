@@ -58,11 +58,11 @@ const PlacesReservations = () => {
             <h3 className="text-xl font-semibold text-red-600 mb-2 dark:text-red-400">
               <i className={`fas fa-credit-card mr-2`}></i>{places_reservation.name_place_tiket}
             </h3>
-            <p className="text-gray-600 text-sm bg-slate-200 dark:bg-gray-700 p-3 rounded h-20 mb-3">
+            <p className="text-gray-600 text-sm bg-slate-200 dark:bg-gray-700 p-3 rounded h-20 mb-3 dark:text-white">
               <i className="fas fa-map-marker-alt mr-2"></i>
               {places_reservation.address_place}
             </p>
-            <p className="text-gray-600 text-sm bg-slate-200 dark:bg-gray-700 p-3 rounded">
+            <p className="text-gray-600 text-sm bg-slate-200 dark:bg-gray-700 p-3 rounded dark:text-white">
               <i className="fas fa-phone mr-2"></i>
               {places_reservation.telephone}
             </p>

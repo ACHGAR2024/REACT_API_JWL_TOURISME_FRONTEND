@@ -123,109 +123,130 @@ const Signalement = () => {
   };
 
   return (
-    <div id="signalements" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn mb-8 pt-20">
-      <div className="container mx-auto px-4 py-8">
-        {notification && (
-          <Notification type={notification.type} message={notification.message} />
-        )}
-        <h1 className="text-2xl font-bold mb-6">Gestion des signalements</h1>
+    <div id="signalements" className="mt-8 bg-white rounded-lg shadow-md animate-slideIn  mb-8 p-6 w-screen md:w-3/4 lg:w-2/3 xl:w-2/3 md:p-9">
+  {notification && (
+    <Notification type={notification.type} message={notification.message} />
+  )}
+  <h1 className="text-2xl font-bold mb-6 dark:text-gray-800 pl-8">Gestion des signalements</h1>
 
-        <div className="bg-white shadow-md rounded-lg overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Place</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contenu</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+  <div className="bg-white shadow-md rounded-lg overflow-hidden ">
+    <table className="divide-y divide-gray-200 ">
+      <thead className="bg-gray-50">
+        <tr>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Place</th>
+           <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+          <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200 dark:text-gray-800">
+        {reportedMessages.map((message) => {
+          const place = getPlaceDetails(message.place_id);
+          return (
+            <React.Fragment key={message.id}>
+              <tr className="animate-fadeIn">
+                
+                <td className="px-6 py-4">
+                  <a href={`/fiche-place/${place.id}`} className="flex items-center">
+                    <div className="flex items-center">
+                      <div className="flex-shrink-0 h-10 w-10">
+                        <img
+                          className="h-12 w-12 rounded"
+                          src={`http://127.0.0.1:8000${place.photo}`}
+                          alt={place.title}
+                        />
+                      </div>
+                      <div className="ml-4">
+                        <div className="text-sm font-medium text-gray-900">{place.title}</div>
+                        <div className="text-sm text-gray-500">ID: {message.place_id}</div>
+                      </div>
+                    </div>
+                  </a>
+                </td>
+              
+               
+                <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <button
+                    className={`mr-2 ${message.is_favorite ? 'text-yellow-500' : ''} hover:text-yellow-700`}
+                    onMouseEnter={() =>
+                      Notiflix.Notify.warning('Favoris', {
+                        position: 'center-top',
+                        timeout: 1000,
+                        clickToClose: true,
+                        showOnlyTheLastOne: true,
+                        pauseOnHover: true,
+                        distance: '100px',
+                        top: '100px',
+                        width: '300px',
+                      })
+                    }
+                  >
+                    <i className="fas fa-star"></i>
+                  </button>
+
+                  <button
+                    className={`mr-2 ${message.is_report ? 'text-red-500' : ''}`}
+                    onMouseEnter={() =>
+                      Notiflix.Notify.info('Signalement', {
+                        position: 'center-top',
+                        timeout: 1000,
+                        clickToClose: true,
+                        showOnlyTheLastOne: true,
+                        pauseOnHover: true,
+                        distance: '100px',
+                        top: '100px',
+                        width: '300px',
+                      })
+                    }
+                  >
+                    <i className="fas fa-flag"></i>
+                  </button>
+                  <button
+                    onClick={() => handleReply(message.id)}
+                    className="text-green-600 hover:text-green-900 mr-2"
+                  >
+                    <i className="fas fa-reply"></i>
+                  </button>
+                  <button
+                    onClick={() => confirmDelete(message.id)}
+                    className="text-red-600 hover:text-red-900"
+                  >
+                    <i className="fas fa-trash"></i>
+                  </button>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {new Date(message.created_at).toLocaleString()}
+                </td>
               </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {reportedMessages.map(message => {
-                const place = getPlaceDetails(message.place_id);
-                return (
-                  <React.Fragment key={message.id}>
-                    <tr className="animate-fadeIn">
-                      <td className="px-6 py-4 whitespace-nowrap">{message.id}</td>
-                      <td className="px-6 py-4">
-                        <a href={`/fiche-place/${place.id}`} className="flex items-center">
-                          <div className="flex items-center">
-                            <div className="flex-shrink-0 h-10 w-10">
-                              <img className="h-12 w-12 rounded" src={`http://127.0.0.1:8000${place.photo}`} alt={place.title} />
-                            </div>
-                            <div className="ml-4">
-                              <div className="text-sm font-medium text-gray-900">{place.title}</div>
-                              <div className="text-sm text-gray-500">ID: {message.place_id}</div>
-                            </div>
-                          </div>
-                        </a>
-                      </td>
-                      <td className="px-6 py-4">{message.content}</td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {new Date(message.created_at).toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button 
-                          className={`mr-2 ${message.is_favorite ? 'text-yellow-500' : ''} hover:text-yellow-700`}
-                          onMouseEnter={() => Notiflix.Notify.warning('Favoris', {
-                            position: 'center-top', timeout: 1000, clickToClose: true, showOnlyTheLastOne: true, pauseOnHover: true, distance: '100px', top: '100px', width: '300px'
-                          })}
-                        >
-                          <i className="fas fa-star"></i>
-                        </button>
+              {replyToId === message.id && (
+                <tr className="animate-slideDown">
+                  <td colSpan="6" className="px-6 py-4 bg-gray-50">
+                    <form onSubmit={handleSubmitReply} className="flex items-center">
+                      <input
+                        type="text"
+                        value={replyContent}
+                        onChange={(e) => setReplyContent(e.target.value)}
+                        className="flex-grow border border-gray-300 rounded-lg px-4 py-2 mr-2"
+                        placeholder="Entrez votre réponse..."
+                      />
+                      <button
+                        type="submit"
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                      >
+                        Répondre
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              )}
+            </React.Fragment>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-                        <button 
-                          className={`mr-2 ${message.is_report ? 'text-red-500' : ''}`}
-                          onMouseEnter={() => Notiflix.Notify.info('Signalement', {
-                            position: 'center-top', timeout: 1000, clickToClose: true, showOnlyTheLastOne: true, pauseOnHover: true, distance: '100px', top: '100px', width: '300px'
-                          })}
-                        >
-                          <i className="fas fa-flag"></i>
-                        </button>
-                        <button 
-                          onClick={() => handleReply(message.id)}
-                          className="text-green-600 hover:text-green-900 mr-2"
-                        >
-                          <i className="fas fa-reply"></i>
-                        </button>
-                        <button 
-                          onClick={() => confirmDelete(message.id)}
-                          className="text-red-600 hover:text-red-900"
-                        >
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    {replyToId === message.id && (
-                      <tr className="animate-slideDown">
-                        <td colSpan="6" className="px-6 py-4 bg-gray-50">
-                          <form onSubmit={handleSubmitReply} className="flex items-center">
-                            <input
-                              type="text"
-                              value={replyContent}
-                              onChange={(e) => setReplyContent(e.target.value)}
-                              className="flex-grow border border-gray-300 rounded-lg px-4 py-2 mr-2"
-                              placeholder="Entrez votre réponse..."
-                            />
-                            <button
-                              type="submit"
-                              className="bg-blue-500 text-white px-4 py-2 rounded-lg"
-                            >
-                              Répondre
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+   
   );
 };
 

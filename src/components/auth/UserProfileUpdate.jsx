@@ -115,7 +115,7 @@ const UserProfileUpdate = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-16 mb-72 w-1/3">
+    <div className="container mx-auto px-4 py-8 mt-16 mb-72 lg:w-2/3 xl:w-1/3 sm:w-2/3 md:w-2/3">
       <h1 className="text-3xl font-bold mb-8 text-black">Edit Profile</h1>
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" encType="multipart/form-data">
         <div className="text-right mb-4">

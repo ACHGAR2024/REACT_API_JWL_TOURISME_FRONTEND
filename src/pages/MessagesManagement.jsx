@@ -141,7 +141,7 @@ const MessagesManagement = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 mt-20 mb-20">
+    <div className="container mx-auto px-4 py-8 mt-20 mb-20 dark:text-gray-900">
       {notification && (
         <Notification type={notification.type} message={notification.message} />
       )}

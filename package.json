@@ -24,6 +24,7 @@
     "react-quill": "^2.0.0",
     "react-router-dom": "^6.25.1",
     "react-slick": "^0.30.2",
+    "react-star-ratings": "^2.3.0",
     "slick-carousel": "^1.8.1"
   },
   "devDependencies": {

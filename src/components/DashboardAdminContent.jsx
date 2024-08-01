@@ -23,7 +23,7 @@ const DashboardCard = ({ title, value, icon, color }) => (
           .replace("text-", "bg-")
           .replace("600", "100")}`}
       >
-        <i className={`${icon} fa-lg ${color}`}></i>
+        <i className={`${icon} ${color}`}></i>
       </div>
     </div>
   </div>
@@ -32,10 +32,10 @@ const DashboardCard = ({ title, value, icon, color }) => (
 const QuickActions = () => (
   <div
     id="quick-actions"
-    className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20"
+    className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20 w-screen md:w-2/4 lg:w-3/4 xl:w-3/4"
   >
-    <h2 className="text-2xl font-bold mb-4">Actions rapides</h2>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <h2 className="text-2xl font-bold mb-4 dark:text-gray-800">Actions rapides</h2>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">
       <a
         href="/messages-management"
         className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
@@ -149,11 +149,11 @@ const DashboardAdminContent = () => {
   }, [token]);
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 dark:bg-slate-900 ">
       {/* Sidebar */}
-      <aside className="hidden md:block  text-white w-64 min-h-screen p-4 transition-all duration-300">
-        <nav className="space-y-4 mt-14 w-1/6 h-screen">
-          <div className="flex items-center justify-between mb-6">
+      <aside className="hidden md:block bg-gray-900 text-white w-64 min-h-screen p-4 transition-all duration-300">
+        <nav className="space-y-4 mt-14 w-64 h-screen">
+          <div className="flex items-center justify-between ">
             <button className="md:hidden text-white focus:outline-none">
               <i className="fas fa-times"></i>
             </button>
@@ -179,42 +179,44 @@ const DashboardAdminContent = () => {
           </a>
           <a
             href="#categories"
-            className="bg-red-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
+            className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
           >
-            <i className="fa fa-list fa-fw pr-"></i> Gestion Catégories
+            <i className="fa fa-list fa-fw pr-1"></i> Gestion Catégories
           </a>
           <a
             href="#places"
-            className="bg-cyan-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
+            className="bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
           >
-            <i className="fa fa-address-book  "></i> Liste places
+            <i className="fa fa-address-book fa-fw pr-1"></i> Liste places
           </a>
           <a
             href="#events"
-            className="bg-sky-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
+            className="bg-sky-800 hover:bg-sky-900 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
           >
-            <i className="fa fa-sitemap "></i> Liste Evénements
+            <i className="fa fa-sitemap fa-fw pr-1"></i> Liste Evénements
           </a>
           <a
             href="#reservations"
-            className="bg-sky-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
+            className="bg-sky-500 hover:bg-sky-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
           >
-            <i className="fa fa-address-book  "></i> Liste lieux de Reservations
+            <i className="fa fa-address-book fa-fw pr-1"></i> Liste lieux de Reservations
           </a>
           <a
             href="#animation"
             className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors duration-300 text-center"
           >
-            <i className="fa fa-clock  "></i> Quitter
+            <i className="fa fa-clock fa-fw pr-1"></i> Quitter
           </a>
         </nav>
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Dashboard Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="flex-1 flex flex-col overflow-hidden sm:pl-8 lg:pl-8 xl:pl-8 dark:bg-slate-900">
+        <div className="h-32">
+          <h1 className="text-4xl font-bold text-gray-800 dark:text-white pt-12 pl-3">Tableau de bord</h1>
+          </div>
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 pt-5 dark:bg-slate-900">
+          <div className="dark:bg-slate-900 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:w-2/4 lg:w-3/4 xl:w-3/4">
             <DashboardCard
               title="Les places"
               icon="fa fa-bolt"
@@ -231,7 +233,7 @@ const DashboardAdminContent = () => {
               title="Favoris"
               icon="fa fa-star"
               value={favoriteCount}
-              color="text-yellow-400"
+              color=""
             />
             <DashboardCard
               title="Signalements"
@@ -242,19 +244,16 @@ const DashboardAdminContent = () => {
           </div>
           <QuickActions />
           <Signalement />
-
           <UtilisateursAdmin />
           <ListeCategories />
-          <ListePlacesAdmin />
           <ListEvents />
           <ListeReservationsAdmin />
-          <div id="animation" className="min-h-screen bg-gray-100 flex flex-col justify-center items-center px-32">
-            
-            <div className="relative w-full h-64 bg-white rounded-lg overflow-hidden">
-              <div className="character walking p-24"></div>
-             
+          <ListePlacesAdmin />
+          
+          <div id="animation" className="min-h-screen bg-gray-100 flex flex-col justify-center items-center px-4 sm:px-8 md:px-16 lg:px-24 xl:px-32 2xl:px-40">
+            <div className="relative w-full h-64 bg-white rounded-lg overflow-hidden flex items-center justify-center">
+              <div className="character walking p-6 sm:p-8 md:p-12 lg:p-16 xl:p-20 2xl:p-24"></div>
             </div>
-            
           </div>
         </main>
       </div>

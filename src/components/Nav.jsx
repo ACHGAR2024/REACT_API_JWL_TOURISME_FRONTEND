@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import DarkModeToggle from "./DarkModeToggle";
 
 const Nav = ({ isAuthenticated, handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,6 +12,7 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
 
   return (
     <nav className="bg-gray-300  z-50 bg-opacity-75">
+      
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
           <img
@@ -18,6 +20,7 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
             src="https://www.info-flash.com/images/info-flash/69/28153/logo/logo-lyon-1671121315.jpeg"
             alt="Logo"
           />
+
           <span className="text-gray-600 hover:text-gray-800 text-lg font-semibold">
             API Tourisme de Lyon
           </span>
@@ -87,7 +90,7 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
                 <i className="fas fa-calendar-alt mr-1"></i>Événements
               </Link>
             </li>
-
+            <DarkModeToggle />
             {isAuthenticated ? (
               <>
                 <li>
@@ -111,6 +114,7 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
                     <i className="fas fa-sign-out-alt mr-1"></i>Deconnexion
                   </button>
                 </li>
+               
               </>
             ) : (
               <>

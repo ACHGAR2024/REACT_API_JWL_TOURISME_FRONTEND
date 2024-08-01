@@ -89,10 +89,10 @@ const Musees = () => {
                 </p>
                 <div className="flex justify-between items-center">
                   <a
-                    href={`/musee/${place.id}`}
+                    href={`/fiche-place/${place.id}`}
                     className="bg-rose-600 text-white px-4 py-2 rounded-full hover:bg-yellow-600 transition duration-300"
                   >
-                    <i className="fas fa-ticket-alt mr-2"></i>Réserver
+                    <i className="fas fa-ticket-alt mr-2"></i>En savoir plus
                   </a>
                   <span className="text-indigo-600">
                     {/*<i className="fas fa-star mr-1"></i>4.8*/}

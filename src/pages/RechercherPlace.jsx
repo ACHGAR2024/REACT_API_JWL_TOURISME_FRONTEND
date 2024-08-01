@@ -97,7 +97,7 @@ const RechercherPlace = () => {
         <select
           value={category}
           onChange={(e) => handleCategoryClick(e.target.value)}
-          className="p-2 border rounded mb-4 md:mb-0 mr-2"
+          className="p-2 border rounded mb-4 md:mb-0 mr-2 dark:text-gray-900"
         >
           <option value="">Toutes les catégories</option>
           {categories.map(cat => (
@@ -107,7 +107,7 @@ const RechercherPlace = () => {
         <select
           value={sortOrder}
           onChange={(e) => setSortOrder(e.target.value)}
-          className="p-2 border rounded mr-2"
+          className="p-2 border rounded mr-2 dark:text-gray-900"
         >
           <option value="">Trier par</option>
           <option value="asc">Prix croissant</option>
@@ -132,11 +132,11 @@ const RechercherPlace = () => {
               <div
                 key={cat.id}
                 onClick={() => handleCategoryClick(cat.id)}
-                className={`bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer ${category === cat.id ? 'bg-gray-200' : ''}`}
+                className={`dark:text-gray-900 bg-white rounded-lg shadow-md p-6 text-center hover:shadow-lg transition-shadow duration-300 cursor-pointer ${category === cat.id ? 'bg-gray-200' : ''}`}
               >
                 
                 <i className={`fa fa-${
-                    cat.name_cat === 'Monuments' ? 'monument' :
+                    cat.name_cat === 'Monuments' ? 'monument ' :
                     cat.name_cat === 'Parcs' ? 'tree' :
                     cat.name_cat === 'Musées' ? 'palette' :
                     cat.name_cat === 'Restaurants' ? 'utensils' :
@@ -167,8 +167,8 @@ const RechercherPlace = () => {
             <div className="bg-white rounded-lg overflow-hidden shadow-md transition-transform duration-300 hover:transform hover:-translate-y-2">
               <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(http://127.0.0.1:8000${place.photo})` }}></div>
               <div className="p-4">
-                <div className="font-semibold mb-2">{place.title}</div>
-                <div className="text-accent font-bold">{place.price} €</div>
+                <div className="dark:text-gray-900 font-semibold mb-2">{place.title}</div>
+                <div className="dark:text-gray-900 text-accent font-bold">{place.price} €</div>
               </div>
             </div>
           </Link>

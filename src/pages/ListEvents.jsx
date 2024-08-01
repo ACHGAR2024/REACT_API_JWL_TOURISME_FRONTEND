@@ -54,9 +54,9 @@ const ListEvents = () => {
   };
 
   return (
-    <div id="events" className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20">
-      <h2 className="text-2xl font-bold mb-4">Liste des événements</h2>
-      <Link to="/event-new" className="mb-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
+    <div id="events" className="dark:text-gray-900 mt-8 bg-white rounded-lg shadow-md animate-slideIn  mb-8 pt-20 w-screen md:w-3/4 lg:w-3/4 xl:w-3/4 md:p-9">
+      <h2 className="text-2xl font-bold mb-4 ml-8">Liste des événements</h2>
+      <Link to="/event-new" className="ml-12 mb-4 inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700">
         <i className="fa fa-plus-circle fa-fw pr-1"></i> Ajouter un événement
       </Link>
       <div className="overflow-x-auto">
@@ -64,13 +64,13 @@ const ListEvents = () => {
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">Photo</th>
-              <th className="py-3 px-6 text-left">Titre</th>
+              <th className="py-3 px-6 text-left">Titre</th>  <th className="py-3 px-6 text-center">Actions</th>
               <th className="py-3 px-6 text-left">Description</th>
               <th className="py-3 px-6 text-left">Adresse</th>
               <th className="py-3 px-6 text-left">Date de début</th>
               <th className="py-3 px-6 text-left">Date de fin</th>
               <th className="py-3 px-6 text-left">Tarifs</th>
-              <th className="py-3 px-6 text-center">Actions</th>
+            
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
@@ -80,11 +80,6 @@ const ListEvents = () => {
                   <img src={`http://127.0.0.1:8000${event.photo_event}`} alt={event.title_event} className="w-8 h-8 rounded-full" />
                 </td>
                 <td className="py-3 px-6 text-left">{event.title_event}</td>
-                <td className="py-3 px-6 text-left">{event.content_event}</td>
-                <td className="py-3 px-6 text-left">{event.address_event}</td>
-                <td className="py-3 px-6 text-left">{event.event_date}</td>
-                <td className="py-3 px-6 text-left">{event.event_end_date}</td>
-                <td className="py-3 px-6 text-left">{event.price_event}</td>
                 <td className="py-3 px-6 text-center">
                   <div className="flex items-center justify-center">
                     <Link to={`/edit-event/${event.id}`} className="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
@@ -98,6 +93,12 @@ const ListEvents = () => {
                     </button>
                   </div>
                 </td>
+                <td className="py-3 px-6 text-left">{event.content_event}</td>
+                <td className="py-3 px-6 text-left">{event.address_event}</td>
+                <td className="py-3 px-6 text-left">{event.event_date}</td>
+                <td className="py-3 px-6 text-left">{event.event_end_date}</td>
+                <td className="py-3 px-6 text-left">{event.price_event}</td>
+                
               </tr>
             ))}
           </tbody>

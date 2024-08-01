@@ -41,7 +41,7 @@ const LieuPlacesRecherche = () => {
       <div className="mb-4">
         <input
           type="text"
-          placeholder="Rechercher par région"
+          placeholder="Rechercher par adresse..."
           value={searchRegion}
           onChange={handleSearch}
           className="p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 w-full"
