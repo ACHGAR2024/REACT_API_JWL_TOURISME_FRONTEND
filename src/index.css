@@ -31,7 +31,7 @@
 .walking {
   animation: walk 10s linear infinite;
   background-image: url("https://i.gifer.com/77w2.gif");
-  
+
   left: 30px;
   padding-left: 20px;
 }

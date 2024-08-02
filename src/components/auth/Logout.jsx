@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import axios from '../../config/axiosConfig';
-import { AuthContext } from '../../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useContext } from "react";
+import axios from "../../config/axiosConfig";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
   const { logout } = useContext(AuthContext);
@@ -9,11 +9,11 @@ const Logout = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post('/logout');
+      await axios.post("/logout");
       logout();
-      navigate('/');
+      navigate("/");
     } catch (error) {
-      console.error('Logout failed', error);
+      console.error("Logout failed", error);
     }
   };
 

@@ -1,4 +1,4 @@
-import { useContext,useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import CartePlaces from "./CartePlaces";
@@ -83,9 +83,7 @@ const HomeContent = () => {
         isDarkMode ? "dark:bg-gray-900 text-gray-100" : "text-gray-900"
       }`}
     >
-      <header className="p-4">
-       
-      </header>
+      <header className="p-4"></header>
       <main className="container mx-auto px-8 pt-12 mb-24">
         <section className="mb-8">
           <h2 className="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-300">

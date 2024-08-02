@@ -5,6 +5,7 @@ import DarkModeToggle from "./DarkModeToggle";
 
 const Nav = ({ isAuthenticated, handleLogout }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const darkMode = localStorage.getItem("darkMode");
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -12,7 +13,6 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
 
   return (
     <nav className="bg-gray-300  z-50 bg-opacity-75">
-      
       <div className="container mx-auto flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
           <img
@@ -114,7 +114,6 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
                     <i className="fas fa-sign-out-alt mr-1"></i>Deconnexion
                   </button>
                 </li>
-               
               </>
             ) : (
               <>
@@ -142,73 +141,319 @@ const Nav = ({ isAuthenticated, handleLogout }) => {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="lg:hidden z-50">
-          <div className="flex flex-col mt-2">
+        <div
+          className={`lg:hidden z-50 ${darkMode ? "bg-gray-800" : "bg-white"}`}
+        >
+          <div
+            className={`flex flex-col mt-2 ${
+              darkMode ? "text-gray-200" : "text-gray-600"
+            }`}
+          >
             {isAuthenticated ? (
               <>
-                <li className="mb-4">
-                  <Link to="/" className="text-gray-600 hover:text-gray-800">
-                    <i className="fas fa-home mr-1"></i>Accueil
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-home mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Accueil
                   </Link>
                 </li>
-                <li className="mb-4">
+                <li
+                  className={`py-4 ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
                   <Link
                     to="/carte"
-                    className="text-gray-600 hover:text-gray-800"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
                   >
-                    <i className="fas fa-map-marked-alt mr-1"></i>Carte
+                    <i
+                      className={`fas fa-map-marked-alt mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Carte
                   </Link>
                 </li>
-                <li className="mb-4">
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
                   <Link
                     to="/lieux-lyon"
-                    className="text-gray-600 hover:text-gray-800"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
                   >
-                    <i className="fas fa-landmark mr-1"></i>Lieux
+                    <i
+                      className={`fas fa-landmark mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Lieux
                   </Link>
                 </li>
-                <li className="mb-4">
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
                   <Link
                     to="/restaurants"
-                    className="text-gray-600 hover:text-gray-800"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
                   >
-                    <i className="fas fa-utensils mr-1"></i>Restaurants
+                    <i
+                      className={`fas fa-utensils mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Restaurants
                   </Link>
                 </li>
-                <li className="mb-4">
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
                   <Link
                     to="/musees"
-                    className="text-gray-600 hover:text-gray-800"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
                   >
-                    <i className="fas fa-palette mr-1"></i>Musées
-                  </Link>
-                </li>
-                <li className="mb-4">
-                  <Link
-                    to="/evenements"
-                    className="text-gray-600 hover:text-gray-800"
-                  >
-                    <i className="fas fa-calendar-alt mr-1"></i>Événements
+                    <i
+                      className={`fas fa-palette mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Musées
                   </Link>
                 </li>
 
-                <Link to="/dashboard" className="text-gray-600 block py-2 px-4">
-                  <i className="fas fa-tachometer-alt mr-1"></i>Tableau de bord
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/evenements"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-calendar-alt mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Événements
+                  </Link>
+                </li>
+
+                <Link
+                  to="/dashboard"
+                  className={`py-4 hover:bg-gray-700 text-lg font-semibold ${
+                    darkMode ? "text-gray-200" : "text-gray-600"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <i
+                    className={`fas fa-tachometer-alt mr-2 ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                  />
+                  Tableau de bord
                 </Link>
                 <button
-                  onClick={handleLogout}
-                  className="text-gray-600 block py-2 px-4"
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className={`py-4 hover:bg-gray-700 mb-8 text-lg font-semibold ${
+                    darkMode ? "text-gray-200" : "text-gray-600"
+                  }`}
                 >
-                  <i className="fas fa-sign-out-alt mr-1"></i>Déconnexion
+                  <i
+                    className={`fas fa-sign-out-alt mr-2 ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                  />
+                  Déconnexion
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" className="text-gray-600 block py-2 px-4">
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-home mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Accueil
+                  </Link>
+                </li>
+                <li
+                  className={`py-4 ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/carte"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-map-marked-alt mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Carte
+                  </Link>
+                </li>
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/lieux-lyon"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-landmark mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Lieux
+                  </Link>
+                </li>
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/restaurants"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-utensils mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Restaurants
+                  </Link>
+                </li>
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/musees"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-palette mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Musées
+                  </Link>
+                </li>
+
+                <li
+                  className={`py-4  ${
+                    darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"
+                  }`}
+                >
+                  <Link
+                    to="/evenements"
+                    className={`text-lg font-semibold ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <i
+                      className={`fas fa-calendar-alt mr-2 ${
+                        darkMode ? "text-gray-200" : "text-gray-600"
+                      }`}
+                    />
+                    Événements
+                  </Link>
+                </li>
+                <Link
+                  to="/login"
+                  className={`py-4 hover:bg-gray-700 text-lg font-semibold ${
+                    darkMode ? "text-gray-200" : "text-gray-600"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <i
+                    className={`fas fa-sign-in-alt mr-2 ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                  ></i>{" "}
                   Connexion
                 </Link>
-                <Link to="/register" className="text-gray-600 block py-2 px-4">
-                  S&apos;inscrire
+                <Link
+                  to="/register"
+                  className={`mb-4 py-4 hover:bg-gray-700  text-lg font-semibold ${
+                    darkMode ? "text-gray-200" : "text-gray-600"
+                  }`}
+                  onClick={() => setIsOpen(false)}
+                >
+                  <i
+                    className={`fas fa-user-plus mr-2 ${
+                      darkMode ? "text-gray-200" : "text-gray-600"
+                    }`}
+                  ></i>{" "}
+                  S&#39;inscrire
                 </Link>
               </>
             )}

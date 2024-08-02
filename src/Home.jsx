@@ -57,7 +57,7 @@ import PlacesReservations from "./pages/PlacesReservations";
 // ** Context Imports **
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import { UserProvider } from "./context/UserContext";
-import { DarkModeProvider } from './context/DarkModeContext';
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 // ** Main Application Component **
 
@@ -229,11 +229,10 @@ const App = () => (
   <AuthProvider>
     <UserProvider>
       <DarkModeProvider>
-      <Home />
+        <Home />
       </DarkModeProvider>
     </UserProvider>
   </AuthProvider>
-  
 );
 
 export default App;

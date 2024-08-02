@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { UserContext } from '../context/UserContext';
-import axios from 'axios';
-import Notification from './Notification';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
+import axios from "axios";
+import Notification from "./Notification";
 
 const EventForm = () => {
   const navigate = useNavigate();
@@ -11,12 +11,12 @@ const EventForm = () => {
   const { token } = useContext(AuthContext);
 
   const [formData, setFormData] = useState({
-    title_event: '',
-    content_event: '',
-    address_event: '',
-    event_date: '',
-    event_end_date: '',
-    price_event: '',
+    title_event: "",
+    content_event: "",
+    address_event: "",
+    event_date: "",
+    event_end_date: "",
+    price_event: "",
     photo_event: null,
     user_id: useridrecup.id,
   });
@@ -27,33 +27,36 @@ const EventForm = () => {
     e.preventDefault();
 
     const data = new FormData();
-    data.append('title_event', formData.title_event);
-    data.append('content_event', formData.content_event);
-    data.append('address_event', formData.address_event);
-    data.append('event_date', formData.event_date);
-    data.append('event_end_date', formData.event_end_date);
-    data.append('price_event', formData.price_event);
+    data.append("title_event", formData.title_event);
+    data.append("content_event", formData.content_event);
+    data.append("address_event", formData.address_event);
+    data.append("event_date", formData.event_date);
+    data.append("event_end_date", formData.event_end_date);
+    data.append("price_event", formData.price_event);
     if (formData.photo_event) {
-      data.append('photo_event', formData.photo_event);
+      data.append("photo_event", formData.photo_event);
     }
-    data.append('user_id', formData.user_id);
+    data.append("user_id", formData.user_id);
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/events', data, {
+      await axios.post("http://127.0.0.1:8000/api/events", data, {
         headers: {
           Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-          Accept: 'application/json',
+          "Content-Type": "multipart/form-data",
+          Accept: "application/json",
         },
       });
 
-      Notification.success('Événement créé avec succès !');
+      Notification.success("Événement créé avec succès !");
       setTimeout(() => {
-        navigate('/events');
+        navigate("/events");
       }, 2000);
     } catch (error) {
-      setError('Erreur lors de la création de l\'événement');
-      console.error('Erreur lors de la création de l\'événement:', error.response);
+      setError("Erreur lors de la création de l'événement");
+      console.error(
+        "Erreur lors de la création de l'événement:",
+        error.response
+      );
     }
   };
 
@@ -66,10 +69,12 @@ const EventForm = () => {
 
     if (searchQuery.length >= 3) {
       try {
-        const response = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${searchQuery}&limit=1`);
+        const response = await axios.get(
+          `https://api-adresse.data.gouv.fr/search/?q=${searchQuery}&limit=1`
+        );
         setSuggestedCities(response.data.features || []);
       } catch (error) {
-        setError('Erreur lors de la recherche d\'adresse');
+        setError("Erreur lors de la recherche d'adresse");
         console.error(error);
       }
     } else {
@@ -78,7 +83,7 @@ const EventForm = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
       photo_event: e.target.files[0],
     }));
@@ -98,9 +103,15 @@ const EventForm = () => {
 
       {error && <div className="mb-4 text-red-600">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title_event">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="title_event"
+          >
             Titre de l&apos;événement
           </label>
           <input
@@ -115,7 +126,10 @@ const EventForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="content_event">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="content_event"
+          >
             Description
           </label>
           <textarea
@@ -129,7 +143,10 @@ const EventForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address_event">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="address_event"
+          >
             Adresse
           </label>
           <input
@@ -138,7 +155,7 @@ const EventForm = () => {
             type="text"
             placeholder="Rechercher une adresse…"
             name="address_event"
-            value={formData.address_event || ''}
+            value={formData.address_event || ""}
             onChange={handlePlaceSearch}
             required
           />
@@ -164,7 +181,10 @@ const EventForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="event_date">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="event_date"
+          >
             Date de début
           </label>
           <input
@@ -179,7 +199,10 @@ const EventForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="event_end_date">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="event_end_date"
+          >
             Date de fin
           </label>
           <input
@@ -194,7 +217,10 @@ const EventForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price_event">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="price_event"
+          >
             Tarifs
           </label>
           <input
@@ -208,7 +234,10 @@ const EventForm = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo_event">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="photo_event"
+          >
             Photo
           </label>
           <input

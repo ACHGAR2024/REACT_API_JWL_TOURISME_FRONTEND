@@ -1,8 +1,7 @@
-
-import { Navigate } from 'react-router-dom';
-import { useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
-import PropTypes from 'prop-types';
+import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import PropTypes from "prop-types";
 
 const PrivateRoute = ({ element: Component }) => {
   const { isAuthenticated } = useContext(AuthContext);
@@ -10,7 +9,6 @@ const PrivateRoute = ({ element: Component }) => {
 };
 
 PrivateRoute.propTypes = {
-  element: PropTypes.any
+  element: PropTypes.any,
 };
 export default PrivateRoute;
-

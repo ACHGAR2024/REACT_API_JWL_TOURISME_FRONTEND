@@ -1,25 +1,23 @@
-import { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
-import { AuthContext } from '../context/AuthContext';
-import { UserContext } from '../context/UserContext';
-import { useNavigate } from 'react-router-dom';
-import Notification from '../components/Notification';
-
+import { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
+import Notification from "../components/Notification";
 
 const DeposerPlace = () => {
-  
   const useridrecup = useContext(UserContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    price: '',
+    title: "",
+    description: "",
+    price: "",
     category_ids: [], // Change category_id to category_ids
-    address: '',
+    address: "",
     photo: null,
-    latitude: '',
-    longitude: '',
-    type: '',
+    latitude: "",
+    longitude: "",
+    type: "",
   });
 
   const [categories, setCategories] = useState([]);
@@ -29,16 +27,19 @@ const DeposerPlace = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/categories', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-        });
+        const response = await axios.get(
+          "http://127.0.0.1:8000/api/categories",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              Accept: "application/json",
+            },
+          }
+        );
         setCategories(response.data.categories || []);
       } catch (error) {
-        console.error('Erreur lors de la récupération des catégories', error);
+        console.error("Erreur lors de la récupération des catégories", error);
       }
     };
 
@@ -56,10 +57,12 @@ const DeposerPlace = () => {
 
     if (searchQuery.length >= 3) {
       try {
-        const response = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${searchQuery}&limit=1`);
+        const response = await axios.get(
+          `https://api-adresse.data.gouv.fr/search/?q=${searchQuery}&limit=1`
+        );
         setSuggestedCities(response.data.features || []);
       } catch (error) {
-        console.error('Erreur lors de la recherche adresse', error);
+        console.error("Erreur lors de la recherche adresse", error);
       }
     } else {
       setSuggestedCities([]);
@@ -68,69 +71,73 @@ const DeposerPlace = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('MON USER ID:', useridrecup.id);
+    console.log("MON USER ID:", useridrecup.id);
     if (!useridrecup.id) {
-      console.error('Erreur : ID utilisateur non disponible');
-      Notification.error('ID utilisateur non disponible');
+      console.error("Erreur : ID utilisateur non disponible");
+      Notification.error("ID utilisateur non disponible");
       return;
     }
 
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append('title', formData.title);
-      formDataToSend.append('description', formData.description);
-      formDataToSend.append('price', formData.price);
-      formDataToSend.append('address', formData.address);
-      formDataToSend.append('photo', formData.photo);
-      formDataToSend.append('latitude', formData.latitude);
-      formDataToSend.append('longitude', formData.longitude);
-      formDataToSend.append('type', formData.type);
-      formDataToSend.append('user_id', useridrecup.id); // Utilisation de `myIdUser`
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("address", formData.address);
+      formDataToSend.append("photo", formData.photo);
+      formDataToSend.append("latitude", formData.latitude);
+      formDataToSend.append("longitude", formData.longitude);
+      formDataToSend.append("type", formData.type);
+      formDataToSend.append("user_id", useridrecup.id); // Utilisation de `myIdUser`
 
-      const currentDate = new Date().toISOString().slice(0, 19).replace('T', ' ');
-      formDataToSend.append('publication_date', currentDate);
+      const currentDate = new Date()
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", " ");
+      formDataToSend.append("publication_date", currentDate);
 
       // Append category IDs as JSON string
-      formDataToSend.append('category_ids', JSON.stringify(formData.category_ids));
-
-      await axios.post(
-        'http://127.0.0.1:8000/api/places',
-        formDataToSend,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'multipart/form-data',
-          },
-        }
+      formDataToSend.append(
+        "category_ids",
+        JSON.stringify(formData.category_ids)
       );
-      Notification.success('Place ajoutée avec succès !');
-      navigate('/dashboard');
+
+      await axios.post("http://127.0.0.1:8000/api/places", formDataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      Notification.success("Place ajoutée avec succès !");
+      navigate("/dashboard");
 
       setFormData({
-        title: '',
-        description: '',
-        price: '',
+        title: "",
+        description: "",
+        price: "",
         category_ids: [],
-        address: '',
+        address: "",
         photo: null,
-        latitude: '',
-        longitude: '',
-        type: '',
+        latitude: "",
+        longitude: "",
+        type: "",
       });
-
     } catch (error) {
-      console.error('Erreur lors de la création de la place :', error.response ? error.response.data : error.message);
-      Notification.error('Erreur lors de la création de la place');
+      console.error(
+        "Erreur lors de la création de la place :",
+        error.response ? error.response.data : error.message
+      );
+      Notification.error("Erreur lors de la création de la place");
     }
   };
 
   const handleChange = (e) => {
-    if (e.target.name === 'photo') {
+    if (e.target.name === "photo") {
       setFormData((prev) => ({
         ...prev,
         photo: e.target.files[0],
       }));
-    } else if (e.target.name === 'category_ids') {
+    } else if (e.target.name === "category_ids") {
       const options = e.target.options;
       const values = [];
       for (let i = 0, l = options.length; i < l; i++) {
@@ -154,9 +161,15 @@ const DeposerPlace = () => {
     <div className="container mx-auto px-4 py-8 mt-20 mb-72 w-1/2">
       <h1 className="text-3xl font-bold mb-8 text-black">Déposer une place</h1>
 
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="title"
+          >
             Titre place
           </label>
           <input
@@ -165,13 +178,16 @@ const DeposerPlace = () => {
             type="text"
             placeholder="Titre de votre place"
             name="title"
-            value={formData.title || ''}
+            value={formData.title || ""}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="description"
+          >
             Description
           </label>
           <textarea
@@ -179,14 +195,17 @@ const DeposerPlace = () => {
             id="description"
             placeholder="Décrivez votre place en détail"
             name="description"
-            value={formData.description || ''}
+            value={formData.description || ""}
             onChange={handleChange}
             rows="4"
             required
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="price"
+          >
             Prix
           </label>
           <input
@@ -195,25 +214,25 @@ const DeposerPlace = () => {
             type="number"
             placeholder="Prix en euros"
             name="price"
-            value={formData.price || ''}
+            value={formData.price || ""}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category_ids">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="category_ids"
+          >
             Catégorie
           </label>
           <select
             className="block appearance-none h-10 w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
-            
             id="category_ids"
             name="category_ids"
             value={formData.category_ids}
             onChange={handleChange}
-           
             required
-            
           >
             <option value="">Choisir une catégorie</option>
             {categories.map((category) => (
@@ -224,7 +243,10 @@ const DeposerPlace = () => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="address"
+          >
             Adresse Complète
           </label>
           <input
@@ -233,7 +255,7 @@ const DeposerPlace = () => {
             type="text"
             placeholder="Rechercher une adresse…"
             name="address"
-            value={formData.address || ''}
+            value={formData.address || ""}
             onChange={handlePlaceSearch}
             required
           />
@@ -260,7 +282,10 @@ const DeposerPlace = () => {
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="latitude">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="latitude"
+          >
             Latitude
           </label>
           <input
@@ -269,13 +294,16 @@ const DeposerPlace = () => {
             type="text"
             placeholder="Format latitude xx.xxxxx"
             name="latitude"
-            value={formData.latitude || ''}
+            value={formData.latitude || ""}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longitude">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="longitude"
+          >
             Longitude
           </label>
           <input
@@ -284,13 +312,16 @@ const DeposerPlace = () => {
             type="text"
             placeholder="Format longitude xx.xxxxx"
             name="longitude"
-            value={formData.longitude || ''}
+            value={formData.longitude || ""}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="photo"
+          >
             Photo
           </label>
           <input
@@ -303,7 +334,10 @@ const DeposerPlace = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="type"
+          >
             Type
           </label>
           <input
@@ -312,7 +346,7 @@ const DeposerPlace = () => {
             type="text"
             placeholder="Type de la place"
             name="type"
-            value={formData.type || ''}
+            value={formData.type || ""}
             onChange={handleChange}
           />
         </div>

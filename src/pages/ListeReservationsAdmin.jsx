@@ -114,7 +114,8 @@ const ListeReservationsAdmin = ({ isEditing }) => {
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">
                 Nom de lieu de réservation
-              </th> <th className="py-3 px-6 text-center">Actions</th>
+              </th>{" "}
+              <th className="py-3 px-6 text-center">Actions</th>
               <th className="py-3 px-6 text-left">Adresse</th>
               <th className="py-3 px-6 text-left">Télephone</th>
               <th className="py-3 px-6 text-left">Date de début réservation</th>
@@ -122,7 +123,6 @@ const ListeReservationsAdmin = ({ isEditing }) => {
                 Date de fin de réservation
               </th>
               <th className="py-3 px-6 text-left">Événement</th>
-             
             </tr>
           </thead>
           <tbody className="text-gray-600 text-sm font-light">
@@ -171,7 +171,6 @@ const ListeReservationsAdmin = ({ isEditing }) => {
                       ?.title_event || "Événement inconnu"}
                   </span>
                 </td>
-                
               </tr>
             ))}
           </tbody>

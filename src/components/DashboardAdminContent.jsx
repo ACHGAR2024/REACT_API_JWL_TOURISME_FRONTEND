@@ -32,7 +32,7 @@ const DashboardCard = ({ title, value, icon, color }) => (
 const QuickActions = () => (
   <div
     id="quick-actions"
-    className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-20 w-screen md:w-2/4 lg:w-3/4 xl:w-3/4"
+    className="mt-8 bg-white rounded-lg shadow-md p-6 animate-slideIn pt-8 w-screen md:w-2/4 lg:w-3/4 xl:w-3/4"
   >
     <h2 className="text-2xl font-bold mb-4 dark:text-gray-800">Actions rapides</h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 ">

@@ -1,9 +1,9 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
-import { UserContext } from '../context/UserContext';
-import axios from 'axios';
-import Notification from './Notification';
+import { useState, useEffect, useContext } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { UserContext } from "../context/UserContext";
+import axios from "axios";
+import Notification from "./Notification";
 
 const EditPlace = () => {
   const { id } = useParams();
@@ -12,16 +12,16 @@ const EditPlace = () => {
   const [categories, setCategories] = useState([]);
   const [suggestedCities, setSuggestedCities] = useState([]);
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    price: '',
-    user_id: '',
+    title: "",
+    description: "",
+    price: "",
+    user_id: "",
     photo: null,
     category_ids: [],
-    address: '',
-    latitude: '',
-    longitude: '',
-    type: '',
+    address: "",
+    latitude: "",
+    longitude: "",
+    type: "",
   });
   const [error, setError] = useState(null); // Ajout d'état pour gérer les erreurs
 
@@ -31,12 +31,15 @@ const EditPlace = () => {
   useEffect(() => {
     const fetchPlace = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/places/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-          },
-        });
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/places/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
         const { place } = response.data;
         setPlace(place);
         setFormData({
@@ -46,10 +49,10 @@ const EditPlace = () => {
           user_id: place.user_id,
           photo: null,
           category_ids: place.category_ids || [],
-          address: place.address || '',
-          latitude: place.latitude || '',
-          longitude: place.longitude || '',
-          type: place.type || '',
+          address: place.address || "",
+          latitude: place.latitude || "",
+          longitude: place.longitude || "",
+          type: place.type || "",
         });
       } catch (error) {
         setError("Erreur lors de la récupération de la place");
@@ -59,12 +62,15 @@ const EditPlace = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/categories`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-          },
-        });
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/categories`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }
+        );
         setCategories(response.data.categories);
       } catch (error) {
         setError("Erreur lors de la récupération des catégories");
@@ -89,10 +95,12 @@ const EditPlace = () => {
 
     if (searchQuery.length >= 3) {
       try {
-        const response = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${searchQuery}&limit=1`);
+        const response = await axios.get(
+          `https://api-adresse.data.gouv.fr/search/?q=${searchQuery}&limit=1`
+        );
         setSuggestedCities(response.data.features || []);
       } catch (error) {
-        setError('Erreur lors de la recherche adresse');
+        setError("Erreur lors de la recherche adresse");
         console.error(error);
       }
     } else {
@@ -105,7 +113,9 @@ const EditPlace = () => {
 
     const geocodeAddress = async (address) => {
       try {
-        const response = await axios.get(`https://api-adresse.data.gouv.fr/search/?q=${address}&limit=1`);
+        const response = await axios.get(
+          `https://api-adresse.data.gouv.fr/search/?q=${address}&limit=1`
+        );
         if (response.data.features.length > 0) {
           const { geometry } = response.data.features[0];
           const [longitude, latitude] = geometry.coordinates;
@@ -115,7 +125,7 @@ const EditPlace = () => {
         setError("Erreur lors du géocodage de l'adresse");
         console.error(error);
       }
-      return { latitude: '', longitude: '' };
+      return { latitude: "", longitude: "" };
     };
 
     const { latitude, longitude } = await geocodeAddress(formData.address);
@@ -123,9 +133,11 @@ const EditPlace = () => {
     try {
       const formDataToSend = new FormData();
       Object.keys(formData).forEach((key) => {
-        if (key === 'category_ids') {
-          formData[key].forEach((id) => formDataToSend.append('category_ids[]', id));
-        } else if (key === 'photo') {
+        if (key === "category_ids") {
+          formData[key].forEach((id) =>
+            formDataToSend.append("category_ids[]", id)
+          );
+        } else if (key === "photo") {
           if (formData[key]) {
             formDataToSend.append(key, formData[key]);
           }
@@ -134,33 +146,43 @@ const EditPlace = () => {
         }
       });
 
-      formDataToSend.append('latitude', latitude);
-      formDataToSend.append('longitude', longitude);
-      formDataToSend.append('_method', 'PUT');
+      formDataToSend.append("latitude", latitude);
+      formDataToSend.append("longitude", longitude);
+      formDataToSend.append("_method", "PUT");
 
-      await axios.post(`http://127.0.0.1:8000/api/places/${id}`, formDataToSend, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.post(
+        `http://127.0.0.1:8000/api/places/${id}`,
+        formDataToSend,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      Notification.success('Place modifiée avec succès !');
+      Notification.success("Place modifiée avec succès !");
 
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate("/dashboard");
       }, 2000);
     } catch (error) {
       setError("Erreur lors de la modification de la place");
-      console.error("Erreur lors de la modification de la place :", error.response);
+      console.error(
+        "Erreur lors de la modification de la place :",
+        error.response
+      );
     }
   };
 
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
-    if (name === 'category_ids') {
-      const selectedValues = Array.from(e.target.selectedOptions, (option) => option.value);
+    if (name === "category_ids") {
+      const selectedValues = Array.from(
+        e.target.selectedOptions,
+        (option) => option.value
+      );
       setFormData((prevFormData) => ({
         ...prevFormData,
         [name]: selectedValues,
@@ -168,7 +190,7 @@ const EditPlace = () => {
     } else {
       setFormData((prevFormData) => ({
         ...prevFormData,
-        [name]: type === 'file' ? files[0] : value,
+        [name]: type === "file" ? files[0] : value,
       }));
     }
   };
@@ -183,9 +205,15 @@ const EditPlace = () => {
 
       {error && <div className="mb-4 text-red-600">{error}</div>}
 
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="title"
+          >
             Titre place
           </label>
           <input
@@ -200,7 +228,10 @@ const EditPlace = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="description"
+          >
             Description
           </label>
           <textarea
@@ -215,7 +246,10 @@ const EditPlace = () => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="price"
+          >
             Prix
           </label>
           <input
@@ -230,14 +264,16 @@ const EditPlace = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category_ids">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="category_ids"
+          >
             Catégories
           </label>
           <select
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="category_ids"
             name="category_ids"
-            
             value={formData.category_ids}
             onChange={handleChange}
           >
@@ -249,7 +285,10 @@ const EditPlace = () => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="address">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="address"
+          >
             Adresse Complète
           </label>
           <input
@@ -258,7 +297,7 @@ const EditPlace = () => {
             type="text"
             placeholder="Rechercher une adresse…"
             name="address"
-            value={formData.address || ''}
+            value={formData.address || ""}
             onChange={handlePlaceSearch}
             required
           />
@@ -285,7 +324,10 @@ const EditPlace = () => {
           )}
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="latitude">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="latitude"
+          >
             Latitude
           </label>
           <input
@@ -294,13 +336,16 @@ const EditPlace = () => {
             type="text"
             placeholder="Format latitude xx.xxxxx"
             name="latitude"
-            value={formData.latitude || ''}
+            value={formData.latitude || ""}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="longitude">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="longitude"
+          >
             Longitude
           </label>
           <input
@@ -309,13 +354,16 @@ const EditPlace = () => {
             type="text"
             placeholder="Format longitude xx.xxxxx"
             name="longitude"
-            value={formData.longitude || ''}
+            value={formData.longitude || ""}
             onChange={handleChange}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="type">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="type"
+          >
             Type
           </label>
           <input
@@ -330,7 +378,10 @@ const EditPlace = () => {
           />
         </div>
         <div>
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="photo">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="photo"
+          >
             Photo
           </label>
           <input
@@ -341,16 +392,15 @@ const EditPlace = () => {
             onChange={handleChange}
           />
         </div>
-        
-          <div className="right-0 text-right m-5">
+
+        <div className="right-0 text-right m-5">
           <button
             className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
             Modifier place
           </button>
-          </div>
-        
+        </div>
       </form>
     </div>
   );

@@ -1,17 +1,16 @@
-
-import Notiflix from 'notiflix';
+import Notiflix from "notiflix";
 
 const Notification = {
   success: (message) => {
-    Notiflix.Notify.success(message, { 
-        position: 'center-top',  
-        distance: '100px',
-        top: '100px',
-        width: '300px',
-        timeout: 3000,
-        clickToClose: true,
-        showOnlyTheLastOne: true,
-        pauseOnHover: true
+    Notiflix.Notify.success(message, {
+      position: "center-top",
+      distance: "100px",
+      top: "100px",
+      width: "300px",
+      timeout: 3000,
+      clickToClose: true,
+      showOnlyTheLastOne: true,
+      pauseOnHover: true,
     });
   },
   error: (message) => {

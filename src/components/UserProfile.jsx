@@ -46,14 +46,13 @@ const UserProfile = () => {
         </ul>
       </div>
       <div className="mt-14">
-      {user.role === "admin" ? (
-  <DashboardAdminContent />
-) : user.role === "agent" ? (
-  <DashboardAgentContent />
-) : (
-  <DashboardContent />
-)}
-
+        {user.role === "admin" ? (
+          <DashboardAdminContent />
+        ) : user.role === "agent" ? (
+          <DashboardAgentContent />
+        ) : (
+          <DashboardContent />
+        )}
       </div>
     </div>
   );
